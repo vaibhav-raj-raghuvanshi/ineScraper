@@ -196,6 +196,8 @@ export const dbRepo = {
     const idx = mockDb.tracked.findIndex(p => p.id === id);
     if (idx !== -1) {
       mockDb.tracked.splice(idx, 1);
+      mockDb.history = mockDb.history.filter(h => h.product_id !== id);
+      mockDb.logs = mockDb.logs.filter(l => l.product_id !== id);
       mockDb.saveToDisk();
       return true;
     }

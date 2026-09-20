@@ -5,6 +5,7 @@ import TrackedProductsList from './components/TrackedProductsList';
 import PriceChart from './components/PriceChart';
 import ScrapeLogsTable from './components/ScrapeLogsTable';
 import NotificationToast from './components/NotificationToast';
+import { API_BASE } from './config';
 
 export default function App() {
   // 1. Initialize persistent state from localStorage so page refresh never loses data
@@ -82,7 +83,7 @@ export default function App() {
   // 1. Fetch tracked products with change detection for price & stock
   const fetchTracked = async () => {
     try {
-      const res = await fetch('/api/tracked');
+      const res = await fetch(`${API_BASE}/api/tracked`);
       if (res.ok) {
         const data = await res.json();
 
@@ -181,8 +182,8 @@ export default function App() {
 
     try {
       const [histRes, logsRes] = await Promise.all([
-        fetch(`/api/tracked/${productId}/history`),
-        fetch(`/api/tracked/${productId}/logs`)
+        fetch(`${API_BASE}/api/tracked/${productId}/history`),
+        fetch(`${API_BASE}/api/tracked/${productId}/logs`)
       ]);
 
       const histData = histRes.ok ? await histRes.json() : [];
@@ -242,7 +243,7 @@ export default function App() {
   const handleTrackProduct = async (product) => {
     setErrorMessage(null);
     try {
-      const res = await fetch('/api/tracked', {
+      const res = await fetch(`${API_BASE}/api/tracked`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -269,7 +270,7 @@ export default function App() {
 
   const handleDeleteProduct = async (id) => {
     try {
-      await fetch(`/api/tracked/${id}`, { method: 'DELETE' });
+      await fetch(`${API_BASE}/api/tracked/${id}`, { method: 'DELETE' });
       const remaining = trackedProducts.filter(p => p.id !== id);
       setTrackedProducts(remaining);
       detailsCache.current.delete(id);
@@ -287,7 +288,7 @@ export default function App() {
     setErrorMessage(null);
     setScrapingIds(prev => new Set(prev).add(id));
     try {
-      const res = await fetch(`/api/tracked/${id}/scrape?force=true`, {
+      const res = await fetch(`${API_BASE}/api/tracked/${id}/scrape?force=true`, {
         method: 'POST'
       });
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Plus, Check, ExternalLink, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
   const [query, setQuery] = useState('');
@@ -41,7 +42,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
         page: pageNum.toString(),
         pageSize: size.toString()
       });
-      const res = await fetch(`/api/search?${params.toString()}`);
+      const res = await fetch(`${API_BASE}/api/search?${params.toString()}`);
       if (res.ok) {
         const data = await res.json();
         setResults(data.items || []);

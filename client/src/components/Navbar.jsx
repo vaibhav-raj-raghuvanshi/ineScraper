@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Activity, Clock, RefreshCw, Bell } from 'lucide-react';
+import { API_BASE } from '../config';
 
 export default function Navbar({ onRefreshAll, isRefreshing, notificationCount, onToggleNotifications }) {
   const [health, setHealth] = useState(null);
 
   const checkHealth = async () => {
     try {
-      const res = await fetch('/health');
+      const res = await fetch(`${API_BASE}/health`);
       if (res.ok) {
         const data = await res.json();
         setHealth(data);

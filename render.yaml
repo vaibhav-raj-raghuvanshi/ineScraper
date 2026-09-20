@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ine-tracker-backend
+    env: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: STORE_BASE_URL
+        value: https://demo.inelabteamdev.com
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: CRON_SECRET
+        value: ine-secret-cron-token-2026

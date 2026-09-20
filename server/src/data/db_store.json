@@ -7,36 +7,36 @@
       "url": "https://demo.inelabteamdev.com/product/49",
       "active": true,
       "last_success_at": null,
-      "locked_until": "2026-09-20T11:03:41.135Z",
+      "locked_until": "2026-09-20T11:09:16.964Z",
       "created_at": "2026-09-20T10:57:02.848Z"
     },
     {
-      "id": "55cf78e7-c26c-458d-bf3f-2656382671d7",
+      "id": "c67c65ee-5d61-4806-87b9-790ad923bc85",
       "external_id": 101,
       "name": "Test Keyboard",
       "url": "https://demo.inelabteamdev.com/product/101",
       "active": true,
-      "last_success_at": "2026-09-20T10:58:41.330Z",
+      "last_success_at": "2026-09-20T11:04:49.386Z",
       "locked_until": null,
-      "created_at": "2026-09-20T10:58:38.702Z"
+      "created_at": "2026-09-20T11:04:46.783Z"
     },
     {
-      "id": "0b253199-312a-4a74-99f0-ac1569b61091",
+      "id": "5259060c-819f-4cfa-a3cf-134768623d7a",
       "external_id": 999,
       "name": "Failed Product",
       "url": "https://demo.inelabteamdev.com/product/999",
       "active": true,
       "last_success_at": null,
-      "locked_until": "2026-09-20T11:03:41.135Z",
-      "created_at": "2026-09-20T10:58:40.014Z"
+      "locked_until": "2026-09-20T11:09:49.214Z",
+      "created_at": "2026-09-20T11:04:48.109Z"
     }
   ],
   "history": [],
   "logs": [
     {
-      "id": "ce23ffbb-bad6-4d70-9fbd-53da147741b2",
-      "product_id": "55cf78e7-c26c-458d-bf3f-2656382671d7",
-      "started_at": "2026-09-20T10:58:38.706Z",
+      "id": "d83b2adc-040d-453a-a389-d52096c1c73e",
+      "product_id": "c67c65ee-5d61-4806-87b9-790ad923bc85",
+      "started_at": "2026-09-20T11:04:46.785Z",
       "duration_ms": 2450,
       "attempts": 2,
       "outcome": "retried",
@@ -45,9 +45,9 @@
       "metadata": null
     },
     {
-      "id": "c79d7a7d-7011-4ecc-8ce2-c66f2ebebde1",
-      "product_id": "0b253199-312a-4a74-99f0-ac1569b61091",
-      "started_at": "2026-09-20T10:58:40.018Z",
+      "id": "c302b7ce-c74f-4100-a603-54cdb228ce41",
+      "product_id": "5259060c-819f-4cfa-a3cf-134768623d7a",
+      "started_at": "2026-09-20T11:04:48.110Z",
       "duration_ms": 1200,
       "attempts": 3,
       "outcome": "failed",

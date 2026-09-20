@@ -3,6 +3,12 @@ import assert from 'node:assert/strict';
 import { dbRepo } from '../src/db/repo.js';
 
 test('Outcome Semantics & Isolation Rules', async (t) => {
+  // Ensure clean idempotent state for test IDs
+  const prev101 = await dbRepo.getTrackedProductByExternalId(101);
+  if (prev101) await dbRepo.deleteTrackedProduct(prev101.id);
+  const prev999 = await dbRepo.getTrackedProductByExternalId(999);
+  if (prev999) await dbRepo.deleteTrackedProduct(prev999.id);
+
   await t.test('Initial log row is inserted with in-progress state', async () => {
     const p = await dbRepo.addTrackedProduct({
       external_id: 101,
