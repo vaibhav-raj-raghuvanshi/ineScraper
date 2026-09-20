@@ -1,12 +1,19 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { dbRepo } from './db/repo.js';
 import { scrapeBatch, scrapeProductWithRetry } from './scraper/scraper.js';
 import { isSupabaseConfigured, supabase } from './db/supabase.js';
 import { chromium } from 'playwright';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const CATALOG_FILE_PATH = path.join(__dirname, 'data/catalog.json');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -28,13 +35,28 @@ let isCatalogLoading = false;
 let catalogLastLoadedAt = null;
 
 /**
- * Pre-fetches all 1,000 items across all 17 pages of the INE mock store
- * Clamped to 60 items per page upstream (16 * 60 + 40 = 1000 items)
+ * Pre-fetches all 1,000 items from cache file or mock store
  */
 async function loadFullCatalog() {
   if (isCatalogLoading) return;
   isCatalogLoading = true;
   const startTime = Date.now();
+
+  // Try loading from saved catalog.json first for instant boot
+  if (fs.existsSync(CATALOG_FILE_PATH)) {
+    try {
+      const raw = fs.readFileSync(CATALOG_FILE_PATH, 'utf8');
+      catalogCache = JSON.parse(raw);
+      catalogCategories = [...new Set(catalogCache.map(i => i.category).filter(Boolean))].sort();
+      catalogLastLoadedAt = new Date().toISOString();
+      console.log(`✓ [Catalog] Instantly loaded ${catalogCache.length} products from disk cache in ${Date.now() - startTime}ms`);
+      isCatalogLoading = false;
+      return;
+    } catch (e) {
+      console.warn('[Catalog] Error reading catalog.json, falling back to network fetch:', e.message);
+    }
+  }
+
   try {
     console.log('[Catalog] Fetching all 1000 products from INE mock store...');
     const pages = Array.from({ length: 17 }, (_, i) => i + 1);
@@ -54,19 +76,26 @@ async function loadFullCatalog() {
 
     const allItems = pageResults.flat();
     if (allItems.length > 0) {
-      catalogCache = allItems.map(item => ({
-        id: item.id,
-        name: item.name,
-        slug: item.slug,
-        brand: item.brand,
-        category: item.category,
-        sku: item.sku,
-        description: item.description,
-        url: `${STORE_BASE_URL}/product/${item.id}`
-      }));
+      const uniqueMap = new Map();
+      for (const item of allItems) {
+        if (item && item.id && !uniqueMap.has(item.id)) {
+          uniqueMap.set(item.id, {
+            id: item.id,
+            name: item.name,
+            slug: item.slug,
+            brand: item.brand,
+            category: item.category,
+            sku: item.sku,
+            description: item.description,
+            url: `${STORE_BASE_URL}/product/${item.id}`
+          });
+        }
+      }
+
+      catalogCache = Array.from(uniqueMap.values()).sort((a, b) => a.id - b.id);
       catalogCategories = [...new Set(catalogCache.map(i => i.category).filter(Boolean))].sort();
       catalogLastLoadedAt = new Date().toISOString();
-      console.log(`✓ [Catalog] Successfully indexed all ${catalogCache.length} products in ${Date.now() - startTime}ms`);
+      console.log(`✓ [Catalog] Successfully indexed all ${catalogCache.length} unique products in ${Date.now() - startTime}ms`);
     }
   } catch (err) {
     console.error('[Catalog] Error loading full catalog:', err);
@@ -101,11 +130,11 @@ app.get('/health', (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
-// 2. Full 1,000 Product Search & Browsing Catalog API
+// 2. Full Product Search & Browsing Catalog API with Smart Relevance Scoring
 // ---------------------------------------------------------------------------
 app.get('/api/search', async (req, res) => {
   try {
-    const q = (req.query.q || '').trim().toLowerCase();
+    const rawQ = (req.query.q || '').trim();
     const category = (req.query.category || '').trim().toLowerCase();
     const page = Math.max(1, parseInt(req.query.page || '1', 10));
     const pageSize = Math.max(1, Math.min(1000, parseInt(req.query.pageSize || '24', 10)));
@@ -122,15 +151,87 @@ app.get('/api/search', async (req, res) => {
       filtered = filtered.filter(item => item.category && item.category.toLowerCase() === category);
     }
 
-    // Filter by query (searches name, brand, category, sku, description)
-    if (q) {
-      filtered = filtered.filter(item =>
-        item.name.toLowerCase().includes(q) ||
-        (item.brand && item.brand.toLowerCase().includes(q)) ||
-        (item.category && item.category.toLowerCase().includes(q)) ||
-        (item.sku && item.sku.toLowerCase().includes(q)) ||
-        (item.description && item.description.toLowerCase().includes(q))
-      );
+    // Smart Multi-Token Relevance Scoring
+    if (rawQ) {
+      const qLower = rawQ.toLowerCase();
+      const tokens = qLower.split(/\s+/).filter(Boolean);
+
+      const scoredItems = [];
+
+      for (const item of filtered) {
+        const name = (item.name || '').toLowerCase();
+        const brand = (item.brand || '').toLowerCase();
+        const cat = (item.category || '').toLowerCase();
+        const sku = (item.sku || '').toLowerCase();
+        const desc = (item.description || '').toLowerCase();
+
+        let score = 0;
+
+        // 1. Exact full-name match (highest possible priority)
+        if (name === qLower) {
+          score += 10000;
+        } else if (name.startsWith(qLower)) {
+          score += 5000;
+        } else if (name.includes(qLower)) {
+          score += 2500;
+        }
+
+        // 2. Exact SKU or Brand match
+        if (sku === qLower) {
+          score += 6000;
+        } else if (sku.includes(qLower)) {
+          score += 1500;
+        }
+        if (brand === qLower) {
+          score += 1000;
+        }
+
+        // 3. Multi-word token matching
+        let matchedTokens = 0;
+        for (const token of tokens) {
+          let tokenMatched = false;
+          if (name.includes(token)) {
+            score += 600;
+            tokenMatched = true;
+          }
+          if (brand.includes(token)) {
+            score += 200;
+            tokenMatched = true;
+          }
+          if (sku.includes(token)) {
+            score += 250;
+            tokenMatched = true;
+          }
+          if (cat.includes(token)) {
+            score += 100;
+            tokenMatched = true;
+          }
+          if (desc.includes(token)) {
+            score += 50;
+            tokenMatched = true;
+          }
+
+          if (tokenMatched) matchedTokens++;
+        }
+
+        // Must match full contiguous phrase OR all individual tokens
+        const matchesFull = name.includes(qLower) || brand.includes(qLower) || sku.includes(qLower) || cat.includes(qLower) || desc.includes(qLower);
+        const matchesAllTokens = tokens.length > 0 && matchedTokens === tokens.length;
+
+        if (matchesFull || matchesAllTokens) {
+          if (matchesAllTokens) score += 1200; // Bonus for all keywords matching
+          scoredItems.push({ item, score });
+        }
+      }
+
+      // Sort by score DESC, then shorter name length (closer match), then ID
+      scoredItems.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        if (a.item.name.length !== b.item.name.length) return a.item.name.length - b.item.name.length;
+        return a.item.id - b.item.id;
+      });
+
+      filtered = scoredItems.map(s => s.item);
     }
 
     const total = filtered.length;
