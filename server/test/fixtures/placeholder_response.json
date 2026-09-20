@@ -1,0 +1,20 @@
+{
+  "placeholders": [
+    "Loading…",
+    "Loading current price…",
+    "Price hidden",
+    "Check the current price and availability.",
+    "Hover over the price area to load the current price.",
+    "NaN",
+    "null",
+    "₹ 0.00"
+  ],
+  "stockVariants": [
+    { "input": "In stock · 72 left", "expectedStock": true, "expectedCount": 72 },
+    { "input": "Only 3 left", "expectedStock": true, "expectedCount": 3 },
+    { "input": "72 IN STOCK", "expectedStock": true, "expectedCount": 72 },
+    { "input": "Selling fast — 5 left", "expectedStock": true, "expectedCount": 5 },
+    { "input": "Out of stock", "expectedStock": false, "expectedCount": 0 },
+    { "input": "Sold out", "expectedStock": false, "expectedCount": 0 }
+  ]
+}

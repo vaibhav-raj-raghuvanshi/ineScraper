@@ -1,0 +1,14 @@
+{
+  "description": "Verified response fixture with exact matched keystream",
+  "externalId": 433,
+  "sessionToken": "test-session-token-abc123xyz",
+  "sampleCiphertext": "ttjs6wzrgPpi4EfAj3/+Peo/hn016+wLrHT9O0RaX9nvs9KbFPaUuXToX8zaceZ8uiuOdin/qBm6Ybx7RANfor6S+7tZrNPrErcbjZZ/6Cy7K45xK7Q=",
+  "expected": {
+    "price": 16142,
+    "mrp": 33629,
+    "stock": 72,
+    "inStock": true,
+    "currency": "INR",
+    "seller": "Ashgrove Depot"
+  }
+}
