@@ -4,7 +4,6 @@ import ProductSearch from './components/ProductSearch';
 import TrackedProductsList from './components/TrackedProductsList';
 import PriceChart from './components/PriceChart';
 import ScrapeLogsTable from './components/ScrapeLogsTable';
-import SupabaseModal from './components/SupabaseModal';
 
 export default function App() {
   const [trackedProducts, setTrackedProducts] = useState([]);
@@ -14,8 +13,6 @@ export default function App() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [scrapingIds, setScrapingIds] = useState(new Set());
   const [errorMessage, setErrorMessage] = useState(null);
-  const [isSupabaseModalOpen, setIsSupabaseModalOpen] = useState(false);
-  const [supabaseConnected, setSupabaseConnected] = useState(false);
 
   // 1. Fetch tracked products on mount
   const fetchTracked = async () => {
@@ -53,19 +50,8 @@ export default function App() {
     }
   };
 
-  const checkHealth = async () => {
-    try {
-      const res = await fetch('/health');
-      if (res.ok) {
-        const data = await res.json();
-        setSupabaseConnected(Boolean(data.supabaseConnected));
-      }
-    } catch (_) {}
-  };
-
   useEffect(() => {
     fetchTracked();
-    checkHealth();
   }, []);
 
   useEffect(() => {
@@ -81,7 +67,6 @@ export default function App() {
       if (selectedProductId) {
         fetchProductDetails(selectedProductId);
       }
-      checkHealth();
     }, 15000);
     return () => clearInterval(timer);
   }, [selectedProductId]);
@@ -93,8 +78,7 @@ export default function App() {
     try {
       await Promise.allSettled([
         fetchTracked(),
-        selectedProductId ? fetchProductDetails(selectedProductId) : Promise.resolve(),
-        checkHealth()
+        selectedProductId ? fetchProductDetails(selectedProductId) : Promise.resolve()
       ]);
     } catch (e) {
       console.error('Refresh error:', e);
@@ -181,8 +165,6 @@ export default function App() {
       <Navbar
         onRefreshAll={handleRefreshAll}
         isRefreshing={isRefreshing}
-        onOpenSupabaseModal={() => setIsSupabaseModalOpen(true)}
-        supabaseConnected={supabaseConnected}
       />
 
       <main className="app-container" style={{ flex: 1, marginTop: '2rem' }}>
@@ -238,16 +220,6 @@ export default function App() {
           logs={logs}
         />
       </main>
-
-      {/* Supabase Configuration Modal */}
-      <SupabaseModal
-        isOpen={isSupabaseModalOpen}
-        onClose={() => setIsSupabaseModalOpen(false)}
-        onSaveSuccess={() => {
-          checkHealth();
-          fetchTracked();
-        }}
-      />
 
       {/* Footer */}
       <footer style={{

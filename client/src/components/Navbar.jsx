@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, ShieldCheck, Clock, RefreshCw, Database, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Activity, Clock, RefreshCw } from 'lucide-react';
 
-export default function Navbar({ onRefreshAll, isRefreshing, onOpenSupabaseModal, supabaseConnected }) {
+export default function Navbar({ onRefreshAll, isRefreshing }) {
   const [health, setHealth] = useState(null);
 
   const checkHealth = async () => {
@@ -21,8 +21,6 @@ export default function Navbar({ onRefreshAll, isRefreshing, onOpenSupabaseModal
     const timer = setInterval(checkHealth, 15000);
     return () => clearInterval(timer);
   }, []);
-
-  const isDbConnected = supabaseConnected || health?.supabaseConnected;
 
   return (
     <header className="header-glass">
@@ -52,32 +50,6 @@ export default function Navbar({ onRefreshAll, isRefreshing, onOpenSupabaseModal
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-          {/* Supabase Connection Status / Setup Button */}
-          <button
-            type="button"
-            onClick={onOpenSupabaseModal}
-            className="btn btn-secondary"
-            style={{
-              padding: '0.45rem 0.85rem',
-              fontSize: '0.8rem',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              borderColor: isDbConnected ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.4)'
-            }}
-            title="Configure or view Supabase PostgreSQL connection"
-          >
-            <Database size={15} color={isDbConnected ? 'var(--accent-emerald)' : 'var(--accent-amber)'} />
-            <span>
-              Supabase: {isDbConnected ? 'Connected' : 'Configure'}
-            </span>
-            {isDbConnected ? (
-              <CheckCircle2 size={13} color="var(--accent-emerald)" />
-            ) : (
-              <AlertCircle size={13} color="var(--accent-amber)" />
-            )}
-          </button>
-
           {/* Keep-Warm Health Indicator */}
           <div style={{
             display: 'flex',
@@ -107,7 +79,7 @@ export default function Navbar({ onRefreshAll, isRefreshing, onOpenSupabaseModal
             <span>0 */2 * * *</span>
           </div>
 
-          {/* Fix: Sync Button never shows blocked/not-allowed cursor */}
+          {/* Sync Button */}
           <button
             type="button"
             className="btn btn-secondary btn-sync"
