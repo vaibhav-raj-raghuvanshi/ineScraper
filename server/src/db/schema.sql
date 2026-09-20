@@ -58,7 +58,17 @@ create index if not exists idx_scrape_logs_product_id on scrape_logs(product_id)
 create index if not exists idx_scrape_logs_started_at on scrape_logs(started_at desc);
 create index if not exists idx_scrape_logs_lookup on scrape_logs(product_id, started_at desc);
 
--- 4. Atomic Claim Stored Procedure
+-- 4. Enable Row Level Security (RLS) and grant full access policies for backend
+alter table tracked_products enable row level security;
+create policy "Allow all on tracked_products" on tracked_products for all using (true) with check (true);
+
+alter table price_history enable row level security;
+create policy "Allow all on price_history" on price_history for all using (true) with check (true);
+
+alter table scrape_logs enable row level security;
+create policy "Allow all on scrape_logs" on scrape_logs for all using (true) with check (true);
+
+-- 5. Atomic Claim Stored Procedure
 -- Atomically claims products due for scraping with a 115-minute freshness threshold (slack)
 -- and locks them for 5 minutes to prevent race conditions or double cron fires.
 create or replace function claim_due_products() returns setof tracked_products as $$
