@@ -40,10 +40,68 @@ export default function PriceChart({ product, history }) {
   const maxPrice = prices.length > 0 ? Math.max(...prices) : null;
   const currentPrice = prices.length > 0 ? prices[prices.length - 1] : null;
 
+  // Custom Dot to highlight MIN and MAX price points on the line
+  const CustomizedDot = (props) => {
+    const { cx, cy, payload, index } = props;
+    if (!cx || !cy || !payload) return null;
+
+    const hasVariance = minPrice !== null && maxPrice !== null && minPrice !== maxPrice;
+    const isMin = hasVariance && payload.price === minPrice;
+    const isMax = hasVariance && payload.price === maxPrice;
+    const isLast = index === chartData.length - 1;
+
+    if (isMin) {
+      return (
+        <g key={`dot-min-${index}`}>
+          <circle cx={cx} cy={cy} r={9} fill="rgba(34, 197, 94, 0.25)" />
+          <circle cx={cx} cy={cy} r={5} fill="#22c55e" stroke="#000000" strokeWidth={2} />
+          <g transform={`translate(${cx}, ${cy + 18})`}>
+            <rect x={-28} y={-10} width={56} height={18} rx={4} fill="#052e16" stroke="#22c55e" strokeWidth={1} />
+            <text x={0} y={2} fill="#86efac" fontSize={9} fontWeight="700" textAnchor="middle" dominantBaseline="middle">
+              MIN ₹{payload.price.toLocaleString('en-IN')}
+            </text>
+          </g>
+        </g>
+      );
+    }
+
+    if (isMax) {
+      return (
+        <g key={`dot-max-${index}`}>
+          <circle cx={cx} cy={cy} r={9} fill="rgba(245, 158, 11, 0.25)" />
+          <circle cx={cx} cy={cy} r={5} fill="#f59e0b" stroke="#000000" strokeWidth={2} />
+          <g transform={`translate(${cx}, ${cy - 18})`}>
+            <rect x={-28} y={-10} width={56} height={18} rx={4} fill="#451a03" stroke="#f59e0b" strokeWidth={1} />
+            <text x={0} y={2} fill="#fde68a" fontSize={9} fontWeight="700" textAnchor="middle" dominantBaseline="middle">
+              MAX ₹{payload.price.toLocaleString('en-IN')}
+            </text>
+          </g>
+        </g>
+      );
+    }
+
+    if (isLast) {
+      return (
+        <g key={`dot-last-${index}`}>
+          <circle cx={cx} cy={cy} r={6} fill="rgba(255, 255, 255, 0.25)" />
+          <circle cx={cx} cy={cy} r={3.5} fill="#ffffff" stroke="#000000" strokeWidth={1.5} />
+        </g>
+      );
+    }
+
+    return (
+      <circle key={`dot-${index}`} cx={cx} cy={cy} r={3} fill="#000000" stroke="#71717a" strokeWidth={1.5} />
+    );
+  };
+
   // Custom Recharts Tooltip
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
+      const hasVariance = minPrice !== null && maxPrice !== null && minPrice !== maxPrice;
+      const isMin = hasVariance && data.price === minPrice;
+      const isMax = hasVariance && data.price === maxPrice;
+
       return (
         <div style={{
           background: '#09090b',
@@ -53,9 +111,21 @@ export default function PriceChart({ product, history }) {
           boxShadow: '0 8px 24px rgba(0, 0, 0, 0.8)',
           backdropFilter: 'blur(10px)'
         }}>
-          <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
-            {data.dateLabel}
-          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem', marginBottom: '0.35rem' }}>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              {data.dateLabel}
+            </p>
+            {isMin && (
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px', borderRadius: '4px', background: 'rgba(34, 197, 94, 0.2)', color: '#4ade80', border: '1px solid rgba(34, 197, 94, 0.4)' }}>
+                LOWEST RECORDED
+              </span>
+            )}
+            {isMax && (
+              <span style={{ fontSize: '0.65rem', fontWeight: 700, padding: '2px 6px', borderRadius: '4px', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.4)' }}>
+                HIGHEST RECORDED
+              </span>
+            )}
+          </div>
           <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fafafa', marginBottom: '0.25rem' }}>
             ₹{data.price.toLocaleString('en-IN')}
           </div>
@@ -141,7 +211,7 @@ export default function PriceChart({ product, history }) {
       {chartData.length > 0 ? (
         <div style={{ width: '100%', height: 340, marginTop: '1rem' }}>
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+            <AreaChart data={chartData} margin={{ top: 25, right: 35, left: 10, bottom: 20 }}>
               <defs>
                 <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#ffffff" stopOpacity={0.2} />
@@ -172,8 +242,8 @@ export default function PriceChart({ product, history }) {
                 strokeWidth={2.5}
                 fillOpacity={1}
                 fill="url(#priceGradient)"
-                dot={{ stroke: '#ffffff', strokeWidth: 2, r: 3, fill: '#000000' }}
-                activeDot={{ stroke: '#ffffff', strokeWidth: 2, r: 5, fill: '#ffffff' }}
+                dot={<CustomizedDot />}
+                activeDot={{ stroke: '#ffffff', strokeWidth: 2, r: 6, fill: '#ffffff' }}
                 connectNulls={false} // Leave honest gaps on missing data!
               />
             </AreaChart>

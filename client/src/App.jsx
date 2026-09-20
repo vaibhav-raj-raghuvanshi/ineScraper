@@ -8,15 +8,27 @@ import NotificationToast from './components/NotificationToast';
 import { API_BASE } from './config';
 
 export default function App() {
-  // 1. Initialize persistent state from localStorage so page refresh never loses data
-  const [trackedProducts, setTrackedProducts] = useState(() => {
+  // 1. User-level portfolio segregation: track IDs specific to THIS browser/user
+  // Brand new users/devices ALWAYS start with an empty tracking portfolio: []
+  const [myTrackedIds, setMyTrackedIds] = useState(() => {
     try {
-      const saved = localStorage.getItem('ine_tracked_products');
-      return saved ? JSON.parse(saved) : [];
+      const saved = localStorage.getItem('ine_my_tracked_ids');
+      if (saved) return JSON.parse(saved);
+      return []; // New users always start completely clean
     } catch (_) {
       return [];
     }
   });
+
+  const myTrackedIdsRef = useRef(myTrackedIds);
+  useEffect(() => {
+    myTrackedIdsRef.current = myTrackedIds;
+    try {
+      localStorage.setItem('ine_my_tracked_ids', JSON.stringify(myTrackedIds));
+    } catch (_) {}
+  }, [myTrackedIds]);
+
+  const [trackedProducts, setTrackedProducts] = useState([]);
 
   const [selectedProductId, setSelectedProductId] = useState(() => {
     try {
@@ -44,7 +56,20 @@ export default function App() {
 
   // In-memory cache for instant response when switching products
   const detailsCache = useRef(new Map());
-  const prevProductsRef = useRef(new Map());
+  const prevProductsRef = useRef((() => {
+    try {
+      const saved = localStorage.getItem('ine_prev_products_snapshot');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const m = new Map();
+        for (const item of parsed) {
+          m.set(item.id, item);
+        }
+        return m;
+      }
+    } catch (_) {}
+    return new Map();
+  })());
 
   // Save to localStorage on change
   useEffect(() => {
@@ -67,9 +92,14 @@ export default function App() {
     } catch (_) {}
   }, [notifications]);
 
-  // Helper to add a notification
+  // Helper to add and consolidate notifications per product
   const addNotification = (item) => {
-    setNotifications(prev => [item, ...prev.slice(0, 49)]); // keep up to 50 alerts
+    setNotifications(prev => {
+      // Consolidate: If an alert already exists for the same product and category (e.g. price A1),
+      // replace it with the new final delta (A2) so obsolete alerts are cleaned up automatically.
+      const filtered = prev.filter(n => !(item.productId && n.productId === item.productId && n.category === item.category));
+      return [item, ...filtered.slice(0, 49)];
+    });
   };
 
   const handleDismissNotification = (id) => {
@@ -80,16 +110,22 @@ export default function App() {
     setNotifications([]);
   };
 
-  // 1. Fetch tracked products with change detection for price & stock
-  const fetchTracked = async () => {
+  // 1. Fetch tracked products with user-level segregation and change detection
+  const fetchTracked = async (idsOverride = null) => {
     try {
+      const activeIds = idsOverride !== null ? idsOverride : myTrackedIdsRef.current;
       const res = await fetch(`${API_BASE}/api/tracked`);
       if (res.ok) {
-        const data = await res.json();
+        const allData = await res.json();
 
-        // Check for price or stock changes against previous snapshot
+        // Segregate: Show only the products tracked by THIS browser/device
+        const myProducts = allData.filter(p =>
+          activeIds.some(id => String(id) === String(p.id) || String(id) === String(p.external_id))
+        );
+
+        // Check for price or stock changes against previous snapshot ONLY for this user's products
         if (prevProductsRef.current.size > 0) {
-          for (const curr of data) {
+          for (const curr of myProducts) {
             const prev = prevProductsRef.current.get(curr.id);
             if (!prev) continue;
 
@@ -101,9 +137,11 @@ export default function App() {
                 const diff = prev.latest_price - curr.latest_price;
                 addNotification({
                   id: `price_drop_${curr.id}_${Date.now()}`,
+                  productId: curr.id,
+                  category: 'price',
                   type: 'price_drop',
                   title: 'Price Drop Alert',
-                  message: `${curr.name} price dropped by ₹${diff.toLocaleString('en-IN')}! Now ₹${curr.latest_price.toLocaleString('en-IN')} (was ₹${prev.latest_price.toLocaleString('en-IN')})`,
+                  message: `${curr.name} dropped by ₹${diff.toLocaleString('en-IN')}! Now ₹${curr.latest_price.toLocaleString('en-IN')} (was ₹${prev.latest_price.toLocaleString('en-IN')})`,
                   productName: curr.name,
                   timestamp: timeStr
                 });
@@ -111,9 +149,11 @@ export default function App() {
                 const diff = curr.latest_price - prev.latest_price;
                 addNotification({
                   id: `price_rise_${curr.id}_${Date.now()}`,
+                  productId: curr.id,
+                  category: 'price',
                   type: 'price_rise',
                   title: 'Price Increase Alert',
-                  message: `${curr.name} price increased by ₹${diff.toLocaleString('en-IN')} to ₹${curr.latest_price.toLocaleString('en-IN')}`,
+                  message: `${curr.name} increased by ₹${diff.toLocaleString('en-IN')} to ₹${curr.latest_price.toLocaleString('en-IN')} (was ₹${prev.latest_price.toLocaleString('en-IN')})`,
                   productName: curr.name,
                   timestamp: timeStr
                 });
@@ -124,10 +164,12 @@ export default function App() {
             if (prev.in_stock !== null && curr.in_stock !== null && prev.in_stock !== curr.in_stock) {
               addNotification({
                 id: `stock_${curr.id}_${Date.now()}`,
+                productId: curr.id,
+                category: 'stock',
                 type: curr.in_stock ? 'stock_back' : 'stock_out',
                 title: curr.in_stock ? 'Back in Stock Alert' : 'Out of Stock Alert',
                 message: curr.in_stock
-                  ? `${curr.name} is now available in stock! (${curr.stock_count || 'Limited'} units available)`
+                  ? `${curr.name} is now back in stock! (${curr.stock_count || 'Limited'} units available)`
                   : `${curr.name} has gone out of stock.`,
                 productName: curr.name,
                 timestamp: timeStr
@@ -136,9 +178,11 @@ export default function App() {
               // Stock quantity fluctuation
               addNotification({
                 id: `stock_qty_${curr.id}_${Date.now()}`,
+                productId: curr.id,
+                category: 'stock',
                 type: 'stock_back',
                 title: 'Stock Quantity Update',
-                message: `${curr.name} stock level updated: ${curr.stock_count} units remaining (was ${prev.stock_count}).`,
+                message: `${curr.name} inventory changed: ${curr.stock_count} units available (was ${prev.stock_count}).`,
                 productName: curr.name,
                 timestamp: timeStr
               });
@@ -146,16 +190,21 @@ export default function App() {
           }
         }
 
-        // Update previous products map
+        // Update previous products map and persist to localStorage
         const newMap = new Map();
-        for (const item of data) {
+        for (const item of myProducts) {
           newMap.set(item.id, { ...item });
         }
         prevProductsRef.current = newMap;
+        try {
+          localStorage.setItem('ine_prev_products_snapshot', JSON.stringify(myProducts));
+        } catch (_) {}
 
-        setTrackedProducts(data);
-        if (!selectedProductId && data.length > 0) {
-          setSelectedProductId(data[0].id);
+        setTrackedProducts(myProducts);
+        if (!selectedProductId && myProducts.length > 0) {
+          setSelectedProductId(myProducts[0].id);
+        } else if (selectedProductId && !myProducts.some(p => p.id === selectedProductId)) {
+          setSelectedProductId(myProducts.length > 0 ? myProducts[0].id : null);
         }
       }
     } catch (err) {
@@ -261,25 +310,28 @@ export default function App() {
       }
 
       const created = await res.json();
-      await fetchTracked();
+      const updatedIds = Array.from(new Set([...myTrackedIdsRef.current, product.id, created.external_id, created.id]));
+      setMyTrackedIds(updatedIds);
+      await fetchTracked(updatedIds);
       setSelectedProductId(created.id);
+      await fetchProductDetails(created.id, true);
     } catch (err) {
       setErrorMessage(err.message);
     }
   };
 
-  const handleDeleteProduct = async (id) => {
-    try {
-      await fetch(`${API_BASE}/api/tracked/${id}`, { method: 'DELETE' });
-      const remaining = trackedProducts.filter(p => p.id !== id);
-      setTrackedProducts(remaining);
-      detailsCache.current.delete(id);
-      prevProductsRef.current.delete(id);
-      if (selectedProductId === id) {
-        setSelectedProductId(remaining.length > 0 ? remaining[0].id : null);
-      }
-    } catch (err) {
-      console.error('Failed to delete product:', err);
+  const handleDeleteProduct = (id) => {
+    const productToDelete = trackedProducts.find(p => p.id === id);
+    const updatedIds = myTrackedIdsRef.current.filter(
+      item => String(item) !== String(id) && (!productToDelete || String(item) !== String(productToDelete.external_id))
+    );
+    setMyTrackedIds(updatedIds);
+    const remaining = trackedProducts.filter(p => p.id !== id);
+    setTrackedProducts(remaining);
+    detailsCache.current.delete(id);
+    prevProductsRef.current.delete(id);
+    if (selectedProductId === id) {
+      setSelectedProductId(remaining.length > 0 ? remaining[0].id : null);
     }
   };
 
@@ -296,9 +348,24 @@ export default function App() {
       if (!res.ok) {
         setErrorMessage(data.error || 'Scrape failed');
       } else {
+        const prevProduct = trackedProducts.find(p => p.id === id);
         await fetchTracked();
         if (selectedProductId === id) {
           await fetchProductDetails(id, true);
+        }
+
+        // Immediate confirmation toast if price & stock remained steady
+        if (data.data && prevProduct && Number(prevProduct.latest_price) === Number(data.data.price) && Number(prevProduct.stock_count) === Number(data.data.stockCount)) {
+          addNotification({
+            id: `steady_${id}_${Date.now()}`,
+            productId: id,
+            category: 'status',
+            type: 'neutral',
+            title: 'Price Verified (Holding Steady)',
+            message: `${prevProduct.name} verified: Price held steady at ₹${data.data.price.toLocaleString('en-IN')} (${data.data.stockCount} in stock).`,
+            productName: prevProduct.name,
+            timestamp: new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })
+          });
         }
       }
     } catch (err) {

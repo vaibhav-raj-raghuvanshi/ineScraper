@@ -22,6 +22,8 @@ export default function NotificationToast({
         return <CheckCircle size={17} color="#34d399" />;
       case 'stock_out':
         return <AlertCircle size={17} color="#fb7185" />;
+      case 'neutral':
+        return <CheckCircle size={17} color="#38bdf8" />;
       default:
         return <Bell size={17} color="#fafafa" />;
     }
@@ -37,6 +39,8 @@ export default function NotificationToast({
         return { background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', color: '#34d399' };
       case 'stock_out':
         return { background: 'rgba(244, 63, 94, 0.15)', border: '1px solid rgba(244, 63, 94, 0.3)', color: '#fb7185' };
+      case 'neutral':
+        return { background: 'rgba(56, 189, 248, 0.12)', border: '1px solid rgba(56, 189, 248, 0.3)', color: '#38bdf8' };
       default:
         return { background: '#18181b', border: '1px solid #27272a', color: '#fafafa' };
     }

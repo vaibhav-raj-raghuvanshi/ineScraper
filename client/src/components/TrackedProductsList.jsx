@@ -1,5 +1,5 @@
-import React from 'react';
-import { Trash2, TrendingUp, RefreshCw, ExternalLink, Clock } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Trash2, TrendingUp, RefreshCw, ExternalLink, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function TrackedProductsList({
   products,
@@ -9,10 +9,21 @@ export default function TrackedProductsList({
   onManualScrape,
   scrapingIds
 }) {
+  const [page, setPage] = useState(1);
+  const pageSize = 9; // Show top 9 per page as requested
+  const totalPages = Math.ceil((products?.length || 0) / pageSize) || 1;
+
+  // Auto-clamp page if items are removed
+  useEffect(() => {
+    if (page > totalPages) {
+      setPage(totalPages);
+    }
+  }, [totalPages, page]);
+
   if (!products || products.length === 0) {
     return (
       <div className="glass-panel" style={{ padding: '3rem 1.5rem', textAlign: 'center', marginBottom: '2rem' }}>
-        <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '0.5rem' }}>No products currently tracked.</p>
+        <p style={{ color: 'var(--text-muted)', fontSize: '1rem', marginBottom: '0.5rem' }}>No products currently tracked in your portfolio.</p>
         <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem' }}>Use the search box above to find and track your first item from INE's mock storefront.</p>
       </div>
     );
@@ -34,6 +45,9 @@ export default function TrackedProductsList({
     return ms > 135 * 60 * 1000; // > 2h15m (135 min)
   };
 
+  const startIndex = (page - 1) * pageSize;
+  const visibleProducts = products.slice(startIndex, startIndex + pageSize);
+
   return (
     <div style={{ marginBottom: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
@@ -51,7 +65,7 @@ export default function TrackedProductsList({
         gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
         gap: '1.25rem'
       }}>
-        {products.map(product => {
+        {visibleProducts.map(product => {
           const isSelected = selectedProductId === product.id;
           const isScraping = scrapingIds.has(product.id);
           const stale = isStale(product.last_success_at);
@@ -120,13 +134,13 @@ export default function TrackedProductsList({
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
-                        if (confirm(`Stop tracking ${product.name}?`)) {
+                        if (confirm(`Remove ${product.name} from your tracked portfolio?`)) {
                           onDeleteProduct(product.id);
                         }
                       }}
                       className="btn-ghost"
                       style={{ padding: '0.25rem', borderRadius: '6px', cursor: 'pointer', border: 'none' }}
-                      title="Remove product"
+                      title="Remove product from portfolio"
                     >
                       <Trash2 size={15} color="var(--accent-rose)" />
                     </button>
@@ -201,6 +215,41 @@ export default function TrackedProductsList({
           );
         })}
       </div>
+
+      {/* Pagination Controls for Tracked Products (Top 9 per page) */}
+      {totalPages > 1 && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '1.25rem',
+          marginTop: '1.5rem',
+          paddingTop: '1.25rem',
+          borderTop: '1px solid var(--border-subtle)'
+        }}>
+          <button
+            type="button"
+            onClick={() => setPage(p => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="btn btn-secondary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}
+          >
+            <ChevronLeft size={16} /> Previous
+          </button>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+            Page <strong style={{ color: '#fafafa' }}>{page}</strong> of <strong style={{ color: '#fafafa' }}>{totalPages}</strong>
+          </span>
+          <button
+            type="button"
+            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+            disabled={page === totalPages}
+            className="btn btn-secondary"
+            style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem' }}
+          >
+            Next <ChevronRight size={16} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
