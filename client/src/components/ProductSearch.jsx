@@ -14,8 +14,25 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
   const [isLoading, setIsLoading] = useState(false);
   const [trackingIds, setTrackingIds] = useState(new Set());
   const debounceRef = useRef(null);
+  const searchCacheRef = useRef(new Map());
 
   const fetchProducts = async (searchQuery, category, pageNum, size) => {
+    const cacheKey = `${searchQuery.trim().toLowerCase()}|${category}|${pageNum}|${size}`;
+
+    // Instant cache check (0ms response)
+    const cached = searchCacheRef.current.get(cacheKey);
+    if (cached) {
+      setResults(cached.items || []);
+      setTotal(cached.total);
+      setTotalPages(cached.totalPages);
+      setCatalogTotal(cached.catalogTotal || 1000);
+      if (cached.categories && cached.categories.length > 0) {
+        setCategories(cached.categories);
+      }
+      setIsLoading(false);
+      return;
+    }
+
     setIsLoading(true);
     try {
       const params = new URLSearchParams({
@@ -34,6 +51,9 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
         if (data.categories && data.categories.length > 0) {
           setCategories(data.categories);
         }
+
+        // Cache the result for instant reuse
+        searchCacheRef.current.set(cacheKey, data);
       }
     } catch (err) {
       console.error('Failed to load catalog products:', err);

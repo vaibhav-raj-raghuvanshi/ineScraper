@@ -1,0 +1,59 @@
+{
+  "tracked": [
+    {
+      "id": "92d0e70d-cf6c-4feb-beda-8145c7ce8142",
+      "external_id": 49,
+      "name": "Cobalt Thermostat Pro",
+      "url": "https://demo.inelabteamdev.com/product/49",
+      "active": true,
+      "last_success_at": null,
+      "locked_until": "2026-09-20T11:03:41.135Z",
+      "created_at": "2026-09-20T10:57:02.848Z"
+    },
+    {
+      "id": "55cf78e7-c26c-458d-bf3f-2656382671d7",
+      "external_id": 101,
+      "name": "Test Keyboard",
+      "url": "https://demo.inelabteamdev.com/product/101",
+      "active": true,
+      "last_success_at": "2026-09-20T10:58:41.330Z",
+      "locked_until": null,
+      "created_at": "2026-09-20T10:58:38.702Z"
+    },
+    {
+      "id": "0b253199-312a-4a74-99f0-ac1569b61091",
+      "external_id": 999,
+      "name": "Failed Product",
+      "url": "https://demo.inelabteamdev.com/product/999",
+      "active": true,
+      "last_success_at": null,
+      "locked_until": "2026-09-20T11:03:41.135Z",
+      "created_at": "2026-09-20T10:58:40.014Z"
+    }
+  ],
+  "history": [],
+  "logs": [
+    {
+      "id": "ce23ffbb-bad6-4d70-9fbd-53da147741b2",
+      "product_id": "55cf78e7-c26c-458d-bf3f-2656382671d7",
+      "started_at": "2026-09-20T10:58:38.706Z",
+      "duration_ms": 2450,
+      "attempts": 2,
+      "outcome": "retried",
+      "http_status": 200,
+      "error_message": null,
+      "metadata": null
+    },
+    {
+      "id": "c79d7a7d-7011-4ecc-8ce2-c66f2ebebde1",
+      "product_id": "0b253199-312a-4a74-99f0-ac1569b61091",
+      "started_at": "2026-09-20T10:58:40.018Z",
+      "duration_ms": 1200,
+      "attempts": 3,
+      "outcome": "failed",
+      "http_status": 500,
+      "error_message": "Simulated 500 timeout",
+      "metadata": null
+    }
+  ]
+}

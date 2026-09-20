@@ -140,6 +140,16 @@
     "url": "https://demo.inelabteamdev.com/product/14"
   },
   {
+    "id": 15,
+    "name": "Nordkraft Slimbook Pro",
+    "slug": "nordkraft-slimbook-pro",
+    "brand": "Nordkraft",
+    "category": "Laptops",
+    "sku": "NOR-10015",
+    "description": "The Nordkraft Slimbook Pro. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/15"
+  },
+  {
     "id": 16,
     "name": "Vantablack Gamebook Pro",
     "slug": "vantablack-gamebook-pro",
@@ -200,6 +210,26 @@
     "url": "https://demo.inelabteamdev.com/product/21"
   },
   {
+    "id": 22,
+    "name": "Auralite Sleep Tracker Pro",
+    "slug": "auralite-sleep-tracker-pro",
+    "brand": "Auralite",
+    "category": "Wearables",
+    "sku": "AUR-10022",
+    "description": "The Auralite Sleep Tracker Pro. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/22"
+  },
+  {
+    "id": 23,
+    "name": "Vista Field Watch Pro",
+    "slug": "vista-field-watch-pro",
+    "brand": "Vista",
+    "category": "Wearables",
+    "sku": "VIS-10023",
+    "description": "The Vista Field Watch Pro. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/23"
+  },
+  {
     "id": 24,
     "name": "Amperage Dive Watch Pro",
     "slug": "amperage-dive-watch-pro",
@@ -248,6 +278,16 @@
     "sku": "SUM-10028",
     "description": "The Summit Gaming Monitor Pro. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/28"
+  },
+  {
+    "id": 29,
+    "name": "Nordkraft Pro Display Pro",
+    "slug": "nordkraft-pro-display-pro",
+    "brand": "Nordkraft",
+    "category": "Monitors",
+    "sku": "NOR-10029",
+    "description": "The Nordkraft Pro Display Pro. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/29"
   },
   {
     "id": 30,
@@ -318,6 +358,16 @@
     "sku": "AUR-10036",
     "description": "The Auralite Webcam Pro. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/36"
+  },
+  {
+    "id": 37,
+    "name": "Vista Stream Controller Pro",
+    "slug": "vista-stream-controller-pro",
+    "brand": "Vista",
+    "category": "Peripherals",
+    "sku": "VIS-10037",
+    "description": "The Vista Stream Controller Pro. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/37"
   },
   {
     "id": 38,
@@ -640,6 +690,16 @@
     "url": "https://demo.inelabteamdev.com/product/69"
   },
   {
+    "id": 70,
+    "name": "Summit Blender Pro",
+    "slug": "summit-blender-pro",
+    "brand": "Summit",
+    "category": "Kitchen",
+    "sku": "SUM-10070",
+    "description": "The Summit Blender Pro. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/70"
+  },
+  {
     "id": 71,
     "name": "Nordkraft Toaster Pro",
     "slug": "nordkraft-toaster-pro",
@@ -950,6 +1010,16 @@
     "url": "https://demo.inelabteamdev.com/product/101"
   },
   {
+    "id": 102,
+    "name": "Helix Sleep Tracker Mini",
+    "slug": "helix-sleep-tracker-mini",
+    "brand": "Helix",
+    "category": "Wearables",
+    "sku": "HEL-10102",
+    "description": "The Helix Sleep Tracker Mini. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/102"
+  },
+  {
     "id": 103,
     "name": "Ironwood Field Watch Mini",
     "slug": "ironwood-field-watch-mini",
@@ -1018,6 +1088,26 @@
     "sku": "DOM-10109",
     "description": "The Domus Pro Display Mini. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/109"
+  },
+  {
+    "id": 110,
+    "name": "Basecamp Touch Monitor Mini",
+    "slug": "basecamp-touch-monitor-mini",
+    "brand": "Basecamp",
+    "category": "Monitors",
+    "sku": "BAS-10110",
+    "description": "The Basecamp Touch Monitor Mini. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/110"
+  },
+  {
+    "id": 111,
+    "name": "Copperpot Curved Monitor Mini",
+    "slug": "copperpot-curved-monitor-mini",
+    "brand": "Copperpot",
+    "category": "Monitors",
+    "sku": "COP-10111",
+    "description": "The Copperpot Curved Monitor Mini. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/111"
   },
   {
     "id": 112,
@@ -1190,6 +1280,16 @@
     "url": "https://demo.inelabteamdev.com/product/128"
   },
   {
+    "id": 129,
+    "name": "Larkspur Thermostat Mini",
+    "slug": "larkspur-thermostat-mini",
+    "brand": "Larkspur",
+    "category": "Smart Home",
+    "sku": "LAR-10129",
+    "description": "The Larkspur Thermostat Mini. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/129"
+  },
+  {
     "id": 130,
     "name": "Helix Smart Bulb Mini",
     "slug": "helix-smart-bulb-mini",
@@ -1198,6 +1298,26 @@
     "sku": "HEL-10130",
     "description": "The Helix Smart Bulb Mini. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/130"
+  },
+  {
+    "id": 131,
+    "name": "Ironwood Video Doorbell Mini",
+    "slug": "ironwood-video-doorbell-mini",
+    "brand": "Ironwood",
+    "category": "Smart Home",
+    "sku": "IRO-10131",
+    "description": "The Ironwood Video Doorbell Mini. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/131"
+  },
+  {
+    "id": 132,
+    "name": "Meridian Indoor Camera Mini",
+    "slug": "meridian-indoor-camera-mini",
+    "brand": "Meridian",
+    "category": "Smart Home",
+    "sku": "MER-10132",
+    "description": "The Meridian Indoor Camera Mini. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/132"
   },
   {
     "id": 133,
@@ -1238,6 +1358,16 @@
     "sku": "AMP-10136",
     "description": "The Amperage Bridge Hub Mini. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/136"
+  },
+  {
+    "id": 137,
+    "name": "Domus Backpack Mini",
+    "slug": "domus-backpack-mini",
+    "brand": "Domus",
+    "category": "Bags",
+    "sku": "DOM-10137",
+    "description": "The Domus Backpack Mini. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/137"
   },
   {
     "id": 138,
@@ -1440,6 +1570,16 @@
     "url": "https://demo.inelabteamdev.com/product/157"
   },
   {
+    "id": 158,
+    "name": "Helix Hiking Boot Mini",
+    "slug": "helix-hiking-boot-mini",
+    "brand": "Helix",
+    "category": "Footwear",
+    "sku": "HEL-10158",
+    "description": "The Helix Hiking Boot Mini. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/158"
+  },
+  {
     "id": 159,
     "name": "Ironwood Sandal Mini",
     "slug": "ironwood-sandal-mini",
@@ -1550,6 +1690,16 @@
     "url": "https://demo.inelabteamdev.com/product/169"
   },
   {
+    "id": 170,
+    "name": "Vantablack Notebook Air",
+    "slug": "vantablack-notebook-air",
+    "brand": "Vantablack",
+    "category": "Laptops",
+    "sku": "VAN-10170",
+    "description": "The Vantablack Notebook Air. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/170"
+  },
+  {
     "id": 171,
     "name": "Larkspur Workstation Air",
     "slug": "larkspur-workstation-air",
@@ -1568,6 +1718,16 @@
     "sku": "HEL-10172",
     "description": "The Helix Cloudbook Air. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/172"
+  },
+  {
+    "id": 173,
+    "name": "Ironwood Convertible Air",
+    "slug": "ironwood-convertible-air",
+    "brand": "Ironwood",
+    "category": "Laptops",
+    "sku": "IRO-10173",
+    "description": "The Ironwood Convertible Air. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/173"
   },
   {
     "id": 174,
@@ -1610,6 +1770,16 @@
     "url": "https://demo.inelabteamdev.com/product/177"
   },
   {
+    "id": 178,
+    "name": "Amperage Fitness Band Air",
+    "slug": "amperage-fitness-band-air",
+    "brand": "Amperage",
+    "category": "Wearables",
+    "sku": "AMP-10178",
+    "description": "The Amperage Fitness Band Air. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/178"
+  },
+  {
     "id": 179,
     "name": "Domus Smart Ring Air",
     "slug": "domus-smart-ring-air",
@@ -1628,6 +1798,16 @@
     "sku": "BAS-10180",
     "description": "The Basecamp AR Glasses Air. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/180"
+  },
+  {
+    "id": 181,
+    "name": "Copperpot Running Watch Air",
+    "slug": "copperpot-running-watch-air",
+    "brand": "Copperpot",
+    "category": "Wearables",
+    "sku": "COP-10181",
+    "description": "The Copperpot Running Watch Air. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/181"
   },
   {
     "id": 182,
@@ -1730,6 +1910,26 @@
     "url": "https://demo.inelabteamdev.com/product/191"
   },
   {
+    "id": 192,
+    "name": "Amperage Field Monitor Air",
+    "slug": "amperage-field-monitor-air",
+    "brand": "Amperage",
+    "category": "Monitors",
+    "sku": "AMP-10192",
+    "description": "The Amperage Field Monitor Air. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/192"
+  },
+  {
+    "id": 193,
+    "name": "Domus Keyboard Air",
+    "slug": "domus-keyboard-air",
+    "brand": "Domus",
+    "category": "Peripherals",
+    "sku": "DOM-10193",
+    "description": "The Domus Keyboard Air. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/193"
+  },
+  {
     "id": 194,
     "name": "Basecamp Mouse Air",
     "slug": "basecamp-mouse-air",
@@ -1758,6 +1958,16 @@
     "sku": "SUM-10196",
     "description": "The Summit Webcam Air. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/196"
+  },
+  {
+    "id": 197,
+    "name": "Nordkraft Stream Controller Air",
+    "slug": "nordkraft-stream-controller-air",
+    "brand": "Nordkraft",
+    "category": "Peripherals",
+    "sku": "NOR-10197",
+    "description": "The Nordkraft Stream Controller Air. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/197"
   },
   {
     "id": 198,
@@ -1830,6 +2040,16 @@
     "url": "https://demo.inelabteamdev.com/product/204"
   },
   {
+    "id": 205,
+    "name": "Vista Solar Charger Air",
+    "slug": "vista-solar-charger-air",
+    "brand": "Vista",
+    "category": "Power",
+    "sku": "VIS-10205",
+    "description": "The Vista Solar Charger Air. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/205"
+  },
+  {
     "id": 206,
     "name": "Amperage USB Hub Air",
     "slug": "amperage-usb-hub-air",
@@ -1858,6 +2078,16 @@
     "sku": "BAS-10208",
     "description": "The Basecamp Travel Adapter Air. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/208"
+  },
+  {
+    "id": 209,
+    "name": "Copperpot Thermostat Air",
+    "slug": "copperpot-thermostat-air",
+    "brand": "Copperpot",
+    "category": "Smart Home",
+    "sku": "COP-10209",
+    "description": "The Copperpot Thermostat Air. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/209"
   },
   {
     "id": 210,
@@ -2030,6 +2260,16 @@
     "url": "https://demo.inelabteamdev.com/product/226"
   },
   {
+    "id": 227,
+    "name": "Larkspur Skillet Air",
+    "slug": "larkspur-skillet-air",
+    "brand": "Larkspur",
+    "category": "Kitchen",
+    "sku": "LAR-10227",
+    "description": "The Larkspur Skillet Air. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/227"
+  },
+  {
     "id": 228,
     "name": "Helix Water Bottle Air",
     "slug": "helix-water-bottle-air",
@@ -2070,6 +2310,16 @@
     "url": "https://demo.inelabteamdev.com/product/231"
   },
   {
+    "id": 232,
+    "name": "Auralite Air Fryer Air",
+    "slug": "auralite-air-fryer-air",
+    "brand": "Auralite",
+    "category": "Kitchen",
+    "sku": "AUR-10232",
+    "description": "The Auralite Air Fryer Air. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/232"
+  },
+  {
     "id": 233,
     "name": "Vista Trail Runners Air",
     "slug": "vista-trail-runners-air",
@@ -2078,6 +2328,16 @@
     "sku": "VIS-10233",
     "description": "The Vista Trail Runners Air. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/233"
+  },
+  {
+    "id": 234,
+    "name": "Amperage Approach Shoe Air",
+    "slug": "amperage-approach-shoe-air",
+    "brand": "Amperage",
+    "category": "Footwear",
+    "sku": "AMP-10234",
+    "description": "The Amperage Approach Shoe Air. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/234"
   },
   {
     "id": 235,
@@ -2108,6 +2368,16 @@
     "sku": "COP-10237",
     "description": "The Copperpot Sneaker Air. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/237"
+  },
+  {
+    "id": 238,
+    "name": "Summit Hiking Boot Air",
+    "slug": "summit-hiking-boot-air",
+    "brand": "Summit",
+    "category": "Footwear",
+    "sku": "SUM-10238",
+    "description": "The Summit Hiking Boot Air. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/238"
   },
   {
     "id": 239,
@@ -2158,6 +2428,16 @@
     "sku": "IRO-10243",
     "description": "The Ironwood Speaker Max. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/243"
+  },
+  {
+    "id": 244,
+    "name": "Meridian Soundbar Max",
+    "slug": "meridian-soundbar-max",
+    "brand": "Meridian",
+    "category": "Audio",
+    "sku": "MER-10244",
+    "description": "The Meridian Soundbar Max. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/244"
   },
   {
     "id": 245,
@@ -2270,6 +2550,16 @@
     "url": "https://demo.inelabteamdev.com/product/255"
   },
   {
+    "id": 256,
+    "name": "Helix Gamebook Max",
+    "slug": "helix-gamebook-max",
+    "brand": "Helix",
+    "category": "Laptops",
+    "sku": "HEL-10256",
+    "description": "The Helix Gamebook Max. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/256"
+  },
+  {
     "id": 257,
     "name": "Ironwood Smartwatch Max",
     "slug": "ironwood-smartwatch-max",
@@ -2278,6 +2568,26 @@
     "sku": "IRO-10257",
     "description": "The Ironwood Smartwatch Max. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/257"
+  },
+  {
+    "id": 258,
+    "name": "Meridian Fitness Band Max",
+    "slug": "meridian-fitness-band-max",
+    "brand": "Meridian",
+    "category": "Wearables",
+    "sku": "MER-10258",
+    "description": "The Meridian Fitness Band Max. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/258"
+  },
+  {
+    "id": 259,
+    "name": "Cobalt Smart Ring Max",
+    "slug": "cobalt-smart-ring-max",
+    "brand": "Cobalt",
+    "category": "Wearables",
+    "sku": "COB-10259",
+    "description": "The Cobalt Smart Ring Max. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/259"
   },
   {
     "id": 260,
@@ -2298,6 +2608,16 @@
     "sku": "VIS-10261",
     "description": "The Vista Running Watch Max. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/261"
+  },
+  {
+    "id": 262,
+    "name": "Amperage Sleep Tracker Max",
+    "slug": "amperage-sleep-tracker-max",
+    "brand": "Amperage",
+    "category": "Wearables",
+    "sku": "AMP-10262",
+    "description": "The Amperage Sleep Tracker Max. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/262"
   },
   {
     "id": 263,
@@ -2348,6 +2668,16 @@
     "sku": "NOR-10267",
     "description": "The Nordkraft Portable Monitor Max. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/267"
+  },
+  {
+    "id": 268,
+    "name": "Vantablack Gaming Monitor Max",
+    "slug": "vantablack-gaming-monitor-max",
+    "brand": "Vantablack",
+    "category": "Monitors",
+    "sku": "VAN-10268",
+    "description": "The Vantablack Gaming Monitor Max. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/268"
   },
   {
     "id": 269,
@@ -2510,6 +2840,16 @@
     "url": "https://demo.inelabteamdev.com/product/284"
   },
   {
+    "id": 285,
+    "name": "Ironwood Solar Charger Max",
+    "slug": "ironwood-solar-charger-max",
+    "brand": "Ironwood",
+    "category": "Power",
+    "sku": "IRO-10285",
+    "description": "The Ironwood Solar Charger Max. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/285"
+  },
+  {
     "id": 286,
     "name": "Meridian USB Hub Max",
     "slug": "meridian-usb-hub-max",
@@ -2540,6 +2880,16 @@
     "url": "https://demo.inelabteamdev.com/product/288"
   },
   {
+    "id": 289,
+    "name": "Vista Thermostat Max",
+    "slug": "vista-thermostat-max",
+    "brand": "Vista",
+    "category": "Smart Home",
+    "sku": "VIS-10289",
+    "description": "The Vista Thermostat Max. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/289"
+  },
+  {
     "id": 290,
     "name": "Amperage Smart Bulb Max",
     "slug": "amperage-smart-bulb-max",
@@ -2548,6 +2898,16 @@
     "sku": "AMP-10290",
     "description": "The Amperage Smart Bulb Max. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/290"
+  },
+  {
+    "id": 291,
+    "name": "Domus Video Doorbell Max",
+    "slug": "domus-video-doorbell-max",
+    "brand": "Domus",
+    "category": "Smart Home",
+    "sku": "DOM-10291",
+    "description": "The Domus Video Doorbell Max. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/291"
   },
   {
     "id": 292,
@@ -2598,6 +2958,16 @@
     "sku": "VAN-10296",
     "description": "The Vantablack Bridge Hub Max. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/296"
+  },
+  {
+    "id": 297,
+    "name": "Larkspur Backpack Max",
+    "slug": "larkspur-backpack-max",
+    "brand": "Larkspur",
+    "category": "Bags",
+    "sku": "LAR-10297",
+    "description": "The Larkspur Backpack Max. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/297"
   },
   {
     "id": 298,
@@ -2710,6 +3080,16 @@
     "url": "https://demo.inelabteamdev.com/product/308"
   },
   {
+    "id": 309,
+    "name": "Nordkraft Sous-Vide Wand Max",
+    "slug": "nordkraft-sous-vide-wand-max",
+    "brand": "Nordkraft",
+    "category": "Kitchen",
+    "sku": "NOR-10309",
+    "description": "The Nordkraft Sous-Vide Wand Max. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/309"
+  },
+  {
     "id": 310,
     "name": "Vantablack Blender Max",
     "slug": "vantablack-blender-max",
@@ -2770,6 +3150,16 @@
     "url": "https://demo.inelabteamdev.com/product/315"
   },
   {
+    "id": 316,
+    "name": "Auralite Waterproof Boot Max",
+    "slug": "auralite-waterproof-boot-max",
+    "brand": "Auralite",
+    "category": "Footwear",
+    "sku": "AUR-10316",
+    "description": "The Auralite Waterproof Boot Max. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/316"
+  },
+  {
     "id": 317,
     "name": "Vista Sneaker Max",
     "slug": "vista-sneaker-max",
@@ -2788,6 +3178,16 @@
     "sku": "AMP-10318",
     "description": "The Amperage Hiking Boot Max. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/318"
+  },
+  {
+    "id": 319,
+    "name": "Domus Sandal Max",
+    "slug": "domus-sandal-max",
+    "brand": "Domus",
+    "category": "Footwear",
+    "sku": "DOM-10319",
+    "description": "The Domus Sandal Max. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/319"
   },
   {
     "id": 320,
@@ -2960,6 +3360,16 @@
     "url": "https://demo.inelabteamdev.com/product/336"
   },
   {
+    "id": 337,
+    "name": "Nordkraft Smartwatch Lite",
+    "slug": "nordkraft-smartwatch-lite",
+    "brand": "Nordkraft",
+    "category": "Wearables",
+    "sku": "NOR-10337",
+    "description": "The Nordkraft Smartwatch Lite. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/337"
+  },
+  {
     "id": 338,
     "name": "Vantablack Fitness Band Lite",
     "slug": "vantablack-fitness-band-lite",
@@ -3008,6 +3418,16 @@
     "sku": "MER-10342",
     "description": "The Meridian Sleep Tracker Lite. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/342"
+  },
+  {
+    "id": 343,
+    "name": "Cobalt Field Watch Lite",
+    "slug": "cobalt-field-watch-lite",
+    "brand": "Cobalt",
+    "category": "Wearables",
+    "sku": "COB-10343",
+    "description": "The Cobalt Field Watch Lite. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/343"
   },
   {
     "id": 344,
@@ -3070,6 +3490,16 @@
     "url": "https://demo.inelabteamdev.com/product/349"
   },
   {
+    "id": 350,
+    "name": "Summit Touch Monitor Lite",
+    "slug": "summit-touch-monitor-lite",
+    "brand": "Summit",
+    "category": "Monitors",
+    "sku": "SUM-10350",
+    "description": "The Summit Touch Monitor Lite. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/350"
+  },
+  {
     "id": 351,
     "name": "Nordkraft Curved Monitor Lite",
     "slug": "nordkraft-curved-monitor-lite",
@@ -3078,6 +3508,16 @@
     "sku": "NOR-10351",
     "description": "The Nordkraft Curved Monitor Lite. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/351"
+  },
+  {
+    "id": 352,
+    "name": "Vantablack Field Monitor Lite",
+    "slug": "vantablack-field-monitor-lite",
+    "brand": "Vantablack",
+    "category": "Monitors",
+    "sku": "VAN-10352",
+    "description": "The Vantablack Field Monitor Lite. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/352"
   },
   {
     "id": 353,
@@ -3190,6 +3630,16 @@
     "url": "https://demo.inelabteamdev.com/product/363"
   },
   {
+    "id": 364,
+    "name": "Summit Surge Station Lite",
+    "slug": "summit-surge-station-lite",
+    "brand": "Summit",
+    "category": "Power",
+    "sku": "SUM-10364",
+    "description": "The Summit Surge Station Lite. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/364"
+  },
+  {
     "id": 365,
     "name": "Nordkraft Solar Charger Lite",
     "slug": "nordkraft-solar-charger-lite",
@@ -3250,6 +3700,16 @@
     "url": "https://demo.inelabteamdev.com/product/370"
   },
   {
+    "id": 371,
+    "name": "Cobalt Video Doorbell Lite",
+    "slug": "cobalt-video-doorbell-lite",
+    "brand": "Cobalt",
+    "category": "Smart Home",
+    "sku": "COB-10371",
+    "description": "The Cobalt Video Doorbell Lite. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/371"
+  },
+  {
     "id": 372,
     "name": "Auralite Indoor Camera Lite",
     "slug": "auralite-indoor-camera-lite",
@@ -3300,6 +3760,16 @@
     "url": "https://demo.inelabteamdev.com/product/376"
   },
   {
+    "id": 377,
+    "name": "Copperpot Backpack Lite",
+    "slug": "copperpot-backpack-lite",
+    "brand": "Copperpot",
+    "category": "Bags",
+    "sku": "COP-10377",
+    "description": "The Copperpot Backpack Lite. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/377"
+  },
+  {
     "id": 378,
     "name": "Summit Messenger Bag Lite",
     "slug": "summit-messenger-bag-lite",
@@ -3340,6 +3810,16 @@
     "url": "https://demo.inelabteamdev.com/product/381"
   },
   {
+    "id": 382,
+    "name": "Helix Duffel Lite",
+    "slug": "helix-duffel-lite",
+    "brand": "Helix",
+    "category": "Bags",
+    "sku": "HEL-10382",
+    "description": "The Helix Duffel Lite. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/382"
+  },
+  {
     "id": 383,
     "name": "Ironwood Tote Lite",
     "slug": "ironwood-tote-lite",
@@ -3348,6 +3828,26 @@
     "sku": "IRO-10383",
     "description": "The Ironwood Tote Lite. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/383"
+  },
+  {
+    "id": 384,
+    "name": "Meridian Pouch Lite",
+    "slug": "meridian-pouch-lite",
+    "brand": "Meridian",
+    "category": "Bags",
+    "sku": "MER-10384",
+    "description": "The Meridian Pouch Lite. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/384"
+  },
+  {
+    "id": 385,
+    "name": "Cobalt Kettle Lite",
+    "slug": "cobalt-kettle-lite",
+    "brand": "Cobalt",
+    "category": "Kitchen",
+    "sku": "COB-10385",
+    "description": "The Cobalt Kettle Lite. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/385"
   },
   {
     "id": 386,
@@ -3418,6 +3918,16 @@
     "sku": "SUM-10392",
     "description": "The Summit Air Fryer Lite. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/392"
+  },
+  {
+    "id": 393,
+    "name": "Nordkraft Trail Runners Lite",
+    "slug": "nordkraft-trail-runners-lite",
+    "brand": "Nordkraft",
+    "category": "Footwear",
+    "sku": "NOR-10393",
+    "description": "The Nordkraft Trail Runners Lite. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/393"
   },
   {
     "id": 394,
@@ -3600,6 +4110,26 @@
     "url": "https://demo.inelabteamdev.com/product/411"
   },
   {
+    "id": 412,
+    "name": "Meridian Cloudbook Plus",
+    "slug": "meridian-cloudbook-plus",
+    "brand": "Meridian",
+    "category": "Laptops",
+    "sku": "MER-10412",
+    "description": "The Meridian Cloudbook Plus. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/412"
+  },
+  {
+    "id": 413,
+    "name": "Cobalt Convertible Plus",
+    "slug": "cobalt-convertible-plus",
+    "brand": "Cobalt",
+    "category": "Laptops",
+    "sku": "COB-10413",
+    "description": "The Cobalt Convertible Plus. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/413"
+  },
+  {
     "id": 414,
     "name": "Auralite Creatorbook Plus",
     "slug": "auralite-creatorbook-plus",
@@ -3700,6 +4230,16 @@
     "url": "https://demo.inelabteamdev.com/product/423"
   },
   {
+    "id": 424,
+    "name": "Helix Dive Watch Plus",
+    "slug": "helix-dive-watch-plus",
+    "brand": "Helix",
+    "category": "Wearables",
+    "sku": "HEL-10424",
+    "description": "The Helix Dive Watch Plus. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/424"
+  },
+  {
     "id": 425,
     "name": "Ironwood Monitor Plus",
     "slug": "ironwood-monitor-plus",
@@ -3760,6 +4300,26 @@
     "url": "https://demo.inelabteamdev.com/product/430"
   },
   {
+    "id": 431,
+    "name": "Domus Curved Monitor Plus",
+    "slug": "domus-curved-monitor-plus",
+    "brand": "Domus",
+    "category": "Monitors",
+    "sku": "DOM-10431",
+    "description": "The Domus Curved Monitor Plus. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/431"
+  },
+  {
+    "id": 432,
+    "name": "Basecamp Field Monitor Plus",
+    "slug": "basecamp-field-monitor-plus",
+    "brand": "Basecamp",
+    "category": "Monitors",
+    "sku": "BAS-10432",
+    "description": "The Basecamp Field Monitor Plus. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/432"
+  },
+  {
     "id": 433,
     "name": "Copperpot Keyboard Plus",
     "slug": "copperpot-keyboard-plus",
@@ -3778,6 +4338,16 @@
     "sku": "SUM-10434",
     "description": "The Summit Mouse Plus. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/434"
+  },
+  {
+    "id": 435,
+    "name": "Nordkraft Trackpad Plus",
+    "slug": "nordkraft-trackpad-plus",
+    "brand": "Nordkraft",
+    "category": "Peripherals",
+    "sku": "NOR-10435",
+    "description": "The Nordkraft Trackpad Plus. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/435"
   },
   {
     "id": 436,
@@ -3820,6 +4390,16 @@
     "url": "https://demo.inelabteamdev.com/product/439"
   },
   {
+    "id": 440,
+    "name": "Meridian Docking Station Plus",
+    "slug": "meridian-docking-station-plus",
+    "brand": "Meridian",
+    "category": "Peripherals",
+    "sku": "MER-10440",
+    "description": "The Meridian Docking Station Plus. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/440"
+  },
+  {
     "id": 441,
     "name": "Cobalt Charger Plus",
     "slug": "cobalt-charger-plus",
@@ -3838,6 +4418,16 @@
     "sku": "AUR-10442",
     "description": "The Auralite Power Bank Plus. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/442"
+  },
+  {
+    "id": 443,
+    "name": "Vista Charging Pad Plus",
+    "slug": "vista-charging-pad-plus",
+    "brand": "Vista",
+    "category": "Power",
+    "sku": "VIS-10443",
+    "description": "The Vista Charging Pad Plus. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/443"
   },
   {
     "id": 444,
@@ -3888,6 +4478,16 @@
     "sku": "SUM-10448",
     "description": "The Summit Travel Adapter Plus. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/448"
+  },
+  {
+    "id": 449,
+    "name": "Nordkraft Thermostat Plus",
+    "slug": "nordkraft-thermostat-plus",
+    "brand": "Nordkraft",
+    "category": "Smart Home",
+    "sku": "NOR-10449",
+    "description": "The Nordkraft Thermostat Plus. A dependable smart home pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/449"
   },
   {
     "id": 450,
@@ -3990,6 +4590,16 @@
     "url": "https://demo.inelabteamdev.com/product/459"
   },
   {
+    "id": 460,
+    "name": "Basecamp Hardshell Case Plus",
+    "slug": "basecamp-hardshell-case-plus",
+    "brand": "Basecamp",
+    "category": "Bags",
+    "sku": "BAS-10460",
+    "description": "The Basecamp Hardshell Case Plus. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/460"
+  },
+  {
     "id": 461,
     "name": "Copperpot Sleeve Plus",
     "slug": "copperpot-sleeve-plus",
@@ -4058,6 +4668,16 @@
     "sku": "IRO-10467",
     "description": "The Ironwood Skillet Plus. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/467"
+  },
+  {
+    "id": 468,
+    "name": "Meridian Water Bottle Plus",
+    "slug": "meridian-water-bottle-plus",
+    "brand": "Meridian",
+    "category": "Kitchen",
+    "sku": "MER-10468",
+    "description": "The Meridian Water Bottle Plus. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/468"
   },
   {
     "id": 469,
@@ -4180,6 +4800,16 @@
     "url": "https://demo.inelabteamdev.com/product/480"
   },
   {
+    "id": 481,
+    "name": "Ironwood Headphones Two",
+    "slug": "ironwood-headphones-two",
+    "brand": "Ironwood",
+    "category": "Audio",
+    "sku": "IRO-10481",
+    "description": "The Ironwood Headphones Two. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/481"
+  },
+  {
     "id": 482,
     "name": "Meridian Earbuds Two",
     "slug": "meridian-earbuds-two",
@@ -4250,6 +4880,16 @@
     "url": "https://demo.inelabteamdev.com/product/488"
   },
   {
+    "id": 489,
+    "name": "Copperpot Ultrabook Two",
+    "slug": "copperpot-ultrabook-two",
+    "brand": "Copperpot",
+    "category": "Laptops",
+    "sku": "COP-10489",
+    "description": "The Copperpot Ultrabook Two. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/489"
+  },
+  {
     "id": 490,
     "name": "Summit Notebook Two",
     "slug": "summit-notebook-two",
@@ -4278,6 +4918,26 @@
     "sku": "VAN-10492",
     "description": "The Vantablack Cloudbook Two. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/492"
+  },
+  {
+    "id": 493,
+    "name": "Larkspur Convertible Two",
+    "slug": "larkspur-convertible-two",
+    "brand": "Larkspur",
+    "category": "Laptops",
+    "sku": "LAR-10493",
+    "description": "The Larkspur Convertible Two. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/493"
+  },
+  {
+    "id": 494,
+    "name": "Helix Creatorbook Two",
+    "slug": "helix-creatorbook-two",
+    "brand": "Helix",
+    "category": "Laptops",
+    "sku": "HEL-10494",
+    "description": "The Helix Creatorbook Two. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/494"
   },
   {
     "id": 495,
@@ -4450,6 +5110,16 @@
     "url": "https://demo.inelabteamdev.com/product/511"
   },
   {
+    "id": 512,
+    "name": "Auralite Field Monitor Two",
+    "slug": "auralite-field-monitor-two",
+    "brand": "Auralite",
+    "category": "Monitors",
+    "sku": "AUR-10512",
+    "description": "The Auralite Field Monitor Two. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/512"
+  },
+  {
     "id": 513,
     "name": "Vista Keyboard Two",
     "slug": "vista-keyboard-two",
@@ -4508,6 +5178,16 @@
     "sku": "SUM-10518",
     "description": "The Summit Numpad Two. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/518"
+  },
+  {
+    "id": 519,
+    "name": "Nordkraft Graphics Tablet Two",
+    "slug": "nordkraft-graphics-tablet-two",
+    "brand": "Nordkraft",
+    "category": "Peripherals",
+    "sku": "NOR-10519",
+    "description": "The Nordkraft Graphics Tablet Two. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/519"
   },
   {
     "id": 520,
@@ -4578,6 +5258,16 @@
     "sku": "AUR-10526",
     "description": "The Auralite USB Hub Two. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/526"
+  },
+  {
+    "id": 527,
+    "name": "Vista Cable Kit Two",
+    "slug": "vista-cable-kit-two",
+    "brand": "Vista",
+    "category": "Power",
+    "sku": "VIS-10527",
+    "description": "The Vista Cable Kit Two. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/527"
   },
   {
     "id": 528,
@@ -4760,6 +5450,16 @@
     "url": "https://demo.inelabteamdev.com/product/545"
   },
   {
+    "id": 546,
+    "name": "Summit Grinder Two",
+    "slug": "summit-grinder-two",
+    "brand": "Summit",
+    "category": "Kitchen",
+    "sku": "SUM-10546",
+    "description": "The Summit Grinder Two. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/546"
+  },
+  {
     "id": 547,
     "name": "Nordkraft Skillet Two",
     "slug": "nordkraft-skillet-two",
@@ -4930,6 +5630,16 @@
     "url": "https://demo.inelabteamdev.com/product/563"
   },
   {
+    "id": 564,
+    "name": "Helix Soundbar Three",
+    "slug": "helix-soundbar-three",
+    "brand": "Helix",
+    "category": "Audio",
+    "sku": "HEL-10564",
+    "description": "The Helix Soundbar Three. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/564"
+  },
+  {
     "id": 565,
     "name": "Ironwood Microphone Three",
     "slug": "ironwood-microphone-three",
@@ -5060,6 +5770,16 @@
     "url": "https://demo.inelabteamdev.com/product/577"
   },
   {
+    "id": 578,
+    "name": "Helix Fitness Band Three",
+    "slug": "helix-fitness-band-three",
+    "brand": "Helix",
+    "category": "Wearables",
+    "sku": "HEL-10578",
+    "description": "The Helix Fitness Band Three. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/578"
+  },
+  {
     "id": 579,
     "name": "Ironwood Smart Ring Three",
     "slug": "ironwood-smart-ring-three",
@@ -5158,6 +5878,16 @@
     "sku": "SUM-10588",
     "description": "The Summit Gaming Monitor Three. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/588"
+  },
+  {
+    "id": 589,
+    "name": "Nordkraft Pro Display Three",
+    "slug": "nordkraft-pro-display-three",
+    "brand": "Nordkraft",
+    "category": "Monitors",
+    "sku": "NOR-10589",
+    "description": "The Nordkraft Pro Display Three. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/589"
   },
   {
     "id": 590,
@@ -5620,6 +6350,16 @@
     "url": "https://demo.inelabteamdev.com/product/635"
   },
   {
+    "id": 636,
+    "name": "Meridian Waterproof Boot Three",
+    "slug": "meridian-waterproof-boot-three",
+    "brand": "Meridian",
+    "category": "Footwear",
+    "sku": "MER-10636",
+    "description": "The Meridian Waterproof Boot Three. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/636"
+  },
+  {
     "id": 637,
     "name": "Cobalt Sneaker Three",
     "slug": "cobalt-sneaker-three",
@@ -5648,6 +6388,16 @@
     "sku": "VIS-10639",
     "description": "The Vista Sandal Three. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/639"
+  },
+  {
+    "id": 640,
+    "name": "Amperage Cross Trainer Three",
+    "slug": "amperage-cross-trainer-three",
+    "brand": "Amperage",
+    "category": "Footwear",
+    "sku": "AMP-10640",
+    "description": "The Amperage Cross Trainer Three. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/640"
   },
   {
     "id": 641,
@@ -5820,6 +6570,16 @@
     "url": "https://demo.inelabteamdev.com/product/657"
   },
   {
+    "id": 658,
+    "name": "Summit Fitness Band S",
+    "slug": "summit-fitness-band-s",
+    "brand": "Summit",
+    "category": "Wearables",
+    "sku": "SUM-10658",
+    "description": "The Summit Fitness Band S. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/658"
+  },
+  {
     "id": 659,
     "name": "Nordkraft Smart Ring S",
     "slug": "nordkraft-smart-ring-s",
@@ -5898,6 +6658,16 @@
     "sku": "AUR-10666",
     "description": "The Auralite Ultrawide S. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/666"
+  },
+  {
+    "id": 667,
+    "name": "Vista Portable Monitor S",
+    "slug": "vista-portable-monitor-s",
+    "brand": "Vista",
+    "category": "Monitors",
+    "sku": "VIS-10667",
+    "description": "The Vista Portable Monitor S. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/667"
   },
   {
     "id": 668,
@@ -6048,6 +6818,16 @@
     "sku": "AMP-10682",
     "description": "The Amperage Power Bank S. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/682"
+  },
+  {
+    "id": 683,
+    "name": "Domus Charging Pad S",
+    "slug": "domus-charging-pad-s",
+    "brand": "Domus",
+    "category": "Power",
+    "sku": "DOM-10683",
+    "description": "The Domus Charging Pad S. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/683"
   },
   {
     "id": 684,
@@ -6380,6 +7160,16 @@
     "url": "https://demo.inelabteamdev.com/product/716"
   },
   {
+    "id": 717,
+    "name": "Larkspur Sneaker S",
+    "slug": "larkspur-sneaker-s",
+    "brand": "Larkspur",
+    "category": "Footwear",
+    "sku": "LAR-10717",
+    "description": "The Larkspur Sneaker S. A dependable footwear pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/717"
+  },
+  {
     "id": 718,
     "name": "Helix Hiking Boot S",
     "slug": "helix-hiking-boot-s",
@@ -6598,6 +7388,26 @@
     "sku": "DOM-10739",
     "description": "The Domus Smart Ring X. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/739"
+  },
+  {
+    "id": 740,
+    "name": "Basecamp AR Glasses X",
+    "slug": "basecamp-ar-glasses-x",
+    "brand": "Basecamp",
+    "category": "Wearables",
+    "sku": "BAS-10740",
+    "description": "The Basecamp AR Glasses X. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/740"
+  },
+  {
+    "id": 741,
+    "name": "Copperpot Running Watch X",
+    "slug": "copperpot-running-watch-x",
+    "brand": "Copperpot",
+    "category": "Wearables",
+    "sku": "COP-10741",
+    "description": "The Copperpot Running Watch X. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/741"
   },
   {
     "id": 742,
@@ -6980,6 +7790,16 @@
     "url": "https://demo.inelabteamdev.com/product/779"
   },
   {
+    "id": 780,
+    "name": "Amperage Hardshell Case X",
+    "slug": "amperage-hardshell-case-x",
+    "brand": "Amperage",
+    "category": "Bags",
+    "sku": "AMP-10780",
+    "description": "The Amperage Hardshell Case X. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/780"
+  },
+  {
     "id": 781,
     "name": "Domus Sleeve X",
     "slug": "domus-sleeve-x",
@@ -6988,6 +7808,16 @@
     "sku": "DOM-10781",
     "description": "The Domus Sleeve X. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/781"
+  },
+  {
+    "id": 782,
+    "name": "Basecamp Duffel X",
+    "slug": "basecamp-duffel-x",
+    "brand": "Basecamp",
+    "category": "Bags",
+    "sku": "BAS-10782",
+    "description": "The Basecamp Duffel X. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/782"
   },
   {
     "id": 783,
@@ -7230,6 +8060,16 @@
     "url": "https://demo.inelabteamdev.com/product/806"
   },
   {
+    "id": 807,
+    "name": "Vista Amplifier XL",
+    "slug": "vista-amplifier-xl",
+    "brand": "Vista",
+    "category": "Audio",
+    "sku": "VIS-10807",
+    "description": "The Vista Amplifier XL. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/807"
+  },
+  {
     "id": 808,
     "name": "Amperage Receiver XL",
     "slug": "amperage-receiver-xl",
@@ -7400,6 +8240,16 @@
     "url": "https://demo.inelabteamdev.com/product/824"
   },
   {
+    "id": 825,
+    "name": "Copperpot Monitor XL",
+    "slug": "copperpot-monitor-xl",
+    "brand": "Copperpot",
+    "category": "Monitors",
+    "sku": "COP-10825",
+    "description": "The Copperpot Monitor XL. A dependable monitors pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/825"
+  },
+  {
     "id": 826,
     "name": "Summit Ultrawide XL",
     "slug": "summit-ultrawide-xl",
@@ -7530,6 +8380,16 @@
     "url": "https://demo.inelabteamdev.com/product/838"
   },
   {
+    "id": 839,
+    "name": "Copperpot Graphics Tablet XL",
+    "slug": "copperpot-graphics-tablet-xl",
+    "brand": "Copperpot",
+    "category": "Peripherals",
+    "sku": "COP-10839",
+    "description": "The Copperpot Graphics Tablet XL. A dependable peripherals pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/839"
+  },
+  {
     "id": 840,
     "name": "Summit Docking Station XL",
     "slug": "summit-docking-station-xl",
@@ -7578,6 +8438,16 @@
     "sku": "HEL-10844",
     "description": "The Helix Surge Station XL. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/844"
+  },
+  {
+    "id": 845,
+    "name": "Ironwood Solar Charger XL",
+    "slug": "ironwood-solar-charger-xl",
+    "brand": "Ironwood",
+    "category": "Power",
+    "sku": "IRO-10845",
+    "description": "The Ironwood Solar Charger XL. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/845"
   },
   {
     "id": 846,
@@ -7760,6 +8630,16 @@
     "url": "https://demo.inelabteamdev.com/product/863"
   },
   {
+    "id": 864,
+    "name": "Amperage Pouch XL",
+    "slug": "amperage-pouch-xl",
+    "brand": "Amperage",
+    "category": "Bags",
+    "sku": "AMP-10864",
+    "description": "The Amperage Pouch XL. A dependable bags pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/864"
+  },
+  {
     "id": 865,
     "name": "Domus Kettle XL",
     "slug": "domus-kettle-xl",
@@ -7768,6 +8648,16 @@
     "sku": "DOM-10865",
     "description": "The Domus Kettle XL. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/865"
+  },
+  {
+    "id": 866,
+    "name": "Basecamp Grinder XL",
+    "slug": "basecamp-grinder-xl",
+    "brand": "Basecamp",
+    "category": "Kitchen",
+    "sku": "BAS-10866",
+    "description": "The Basecamp Grinder XL. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/866"
   },
   {
     "id": 867,
@@ -7940,6 +8830,16 @@
     "url": "https://demo.inelabteamdev.com/product/883"
   },
   {
+    "id": 884,
+    "name": "Vantablack Soundbar Studio",
+    "slug": "vantablack-soundbar-studio",
+    "brand": "Vantablack",
+    "category": "Audio",
+    "sku": "VAN-10884",
+    "description": "The Vantablack Soundbar Studio. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/884"
+  },
+  {
     "id": 885,
     "name": "Larkspur Microphone Studio",
     "slug": "larkspur-microphone-studio",
@@ -8098,6 +8998,16 @@
     "sku": "HEL-10900",
     "description": "The Helix AR Glasses Studio. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/900"
+  },
+  {
+    "id": 901,
+    "name": "Ironwood Running Watch Studio",
+    "slug": "ironwood-running-watch-studio",
+    "brand": "Ironwood",
+    "category": "Wearables",
+    "sku": "IRO-10901",
+    "description": "The Ironwood Running Watch Studio. A dependable wearables pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/901"
   },
   {
     "id": 902,
@@ -8298,6 +9208,16 @@
     "sku": "DOM-10921",
     "description": "The Domus Charger Studio. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/921"
+  },
+  {
+    "id": 922,
+    "name": "Basecamp Power Bank Studio",
+    "slug": "basecamp-power-bank-studio",
+    "brand": "Basecamp",
+    "category": "Power",
+    "sku": "BAS-10922",
+    "description": "The Basecamp Power Bank Studio. A dependable power pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/922"
   },
   {
     "id": 923,
@@ -8560,6 +9480,16 @@
     "url": "https://demo.inelabteamdev.com/product/948"
   },
   {
+    "id": 949,
+    "name": "Domus Sous-Vide Wand Studio",
+    "slug": "domus-sous-vide-wand-studio",
+    "brand": "Domus",
+    "category": "Kitchen",
+    "sku": "DOM-10949",
+    "description": "The Domus Sous-Vide Wand Studio. A dependable kitchen pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/949"
+  },
+  {
     "id": 950,
     "name": "Basecamp Blender Studio",
     "slug": "basecamp-blender-studio",
@@ -8690,6 +9620,16 @@
     "url": "https://demo.inelabteamdev.com/product/962"
   },
   {
+    "id": 963,
+    "name": "Domus Speaker Neo",
+    "slug": "domus-speaker-neo",
+    "brand": "Domus",
+    "category": "Audio",
+    "sku": "DOM-10963",
+    "description": "The Domus Speaker Neo. A dependable audio pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/963"
+  },
+  {
     "id": 964,
     "name": "Basecamp Soundbar Neo",
     "slug": "basecamp-soundbar-neo",
@@ -8768,6 +9708,16 @@
     "sku": "IRO-10971",
     "description": "The Ironwood Workstation Neo. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
     "url": "https://demo.inelabteamdev.com/product/971"
+  },
+  {
+    "id": 972,
+    "name": "Meridian Cloudbook Neo",
+    "slug": "meridian-cloudbook-neo",
+    "brand": "Meridian",
+    "category": "Laptops",
+    "sku": "MER-10972",
+    "description": "The Meridian Cloudbook Neo. A dependable laptops pick with a clean, no-nonsense design and the everyday features you actually use.",
+    "url": "https://demo.inelabteamdev.com/product/972"
   },
   {
     "id": 973,

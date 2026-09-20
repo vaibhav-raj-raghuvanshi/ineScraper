@@ -1,25 +1,157 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Navbar from './components/Navbar';
 import ProductSearch from './components/ProductSearch';
 import TrackedProductsList from './components/TrackedProductsList';
 import PriceChart from './components/PriceChart';
 import ScrapeLogsTable from './components/ScrapeLogsTable';
+import NotificationToast from './components/NotificationToast';
 
 export default function App() {
-  const [trackedProducts, setTrackedProducts] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+  // 1. Initialize persistent state from localStorage so page refresh never loses data
+  const [trackedProducts, setTrackedProducts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ine_tracked_products');
+      return saved ? JSON.parse(saved) : [];
+    } catch (_) {
+      return [];
+    }
+  });
+
+  const [selectedProductId, setSelectedProductId] = useState(() => {
+    try {
+      return localStorage.getItem('ine_selected_product_id') || null;
+    } catch (_) {
+      return null;
+    }
+  });
+
+  const [notifications, setNotifications] = useState(() => {
+    try {
+      const saved = localStorage.getItem('ine_notifications');
+      return saved ? JSON.parse(saved) : [];
+    } catch (_) {
+      return [];
+    }
+  });
+
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [history, setHistory] = useState([]);
   const [logs, setLogs] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [scrapingIds, setScrapingIds] = useState(new Set());
   const [errorMessage, setErrorMessage] = useState(null);
 
-  // 1. Fetch tracked products on mount
+  // In-memory cache for instant response when switching products
+  const detailsCache = useRef(new Map());
+  const prevProductsRef = useRef(new Map());
+
+  // Save to localStorage on change
+  useEffect(() => {
+    try {
+      localStorage.setItem('ine_tracked_products', JSON.stringify(trackedProducts));
+    } catch (_) {}
+  }, [trackedProducts]);
+
+  useEffect(() => {
+    try {
+      if (selectedProductId) {
+        localStorage.setItem('ine_selected_product_id', selectedProductId);
+      }
+    } catch (_) {}
+  }, [selectedProductId]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('ine_notifications', JSON.stringify(notifications));
+    } catch (_) {}
+  }, [notifications]);
+
+  // Helper to add a notification
+  const addNotification = (item) => {
+    setNotifications(prev => [item, ...prev.slice(0, 49)]); // keep up to 50 alerts
+  };
+
+  const handleDismissNotification = (id) => {
+    setNotifications(prev => prev.filter(n => n.id !== id));
+  };
+
+  const handleClearAllNotifications = () => {
+    setNotifications([]);
+  };
+
+  // 1. Fetch tracked products with change detection for price & stock
   const fetchTracked = async () => {
     try {
       const res = await fetch('/api/tracked');
       if (res.ok) {
         const data = await res.json();
+
+        // Check for price or stock changes against previous snapshot
+        if (prevProductsRef.current.size > 0) {
+          for (const curr of data) {
+            const prev = prevProductsRef.current.get(curr.id);
+            if (!prev) continue;
+
+            const timeStr = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+
+            // Price Change Alert
+            if (prev.latest_price && curr.latest_price && prev.latest_price !== curr.latest_price) {
+              if (curr.latest_price < prev.latest_price) {
+                const diff = prev.latest_price - curr.latest_price;
+                addNotification({
+                  id: `price_drop_${curr.id}_${Date.now()}`,
+                  type: 'price_drop',
+                  title: 'Price Drop Alert',
+                  message: `${curr.name} price dropped by ₹${diff.toLocaleString('en-IN')}! Now ₹${curr.latest_price.toLocaleString('en-IN')} (was ₹${prev.latest_price.toLocaleString('en-IN')})`,
+                  productName: curr.name,
+                  timestamp: timeStr
+                });
+              } else {
+                const diff = curr.latest_price - prev.latest_price;
+                addNotification({
+                  id: `price_rise_${curr.id}_${Date.now()}`,
+                  type: 'price_rise',
+                  title: 'Price Increase Alert',
+                  message: `${curr.name} price increased by ₹${diff.toLocaleString('en-IN')} to ₹${curr.latest_price.toLocaleString('en-IN')}`,
+                  productName: curr.name,
+                  timestamp: timeStr
+                });
+              }
+            }
+
+            // Stock Status Change Alert
+            if (prev.in_stock !== null && curr.in_stock !== null && prev.in_stock !== curr.in_stock) {
+              addNotification({
+                id: `stock_${curr.id}_${Date.now()}`,
+                type: curr.in_stock ? 'stock_back' : 'stock_out',
+                title: curr.in_stock ? 'Back in Stock Alert' : 'Out of Stock Alert',
+                message: curr.in_stock
+                  ? `${curr.name} is now available in stock! (${curr.stock_count || 'Limited'} units available)`
+                  : `${curr.name} has gone out of stock.`,
+                productName: curr.name,
+                timestamp: timeStr
+              });
+            } else if (prev.stock_count !== null && curr.stock_count !== null && prev.stock_count !== curr.stock_count && curr.in_stock) {
+              // Stock quantity fluctuation
+              addNotification({
+                id: `stock_qty_${curr.id}_${Date.now()}`,
+                type: 'stock_back',
+                title: 'Stock Quantity Update',
+                message: `${curr.name} stock level updated: ${curr.stock_count} units remaining (was ${prev.stock_count}).`,
+                productName: curr.name,
+                timestamp: timeStr
+              });
+            }
+          }
+        }
+
+        // Update previous products map
+        const newMap = new Map();
+        for (const item of data) {
+          newMap.set(item.id, { ...item });
+        }
+        prevProductsRef.current = newMap;
+
         setTrackedProducts(data);
         if (!selectedProductId && data.length > 0) {
           setSelectedProductId(data[0].id);
@@ -30,21 +162,41 @@ export default function App() {
     }
   };
 
-  // 2. Fetch history and logs for active product
-  const fetchProductDetails = async (productId) => {
+  // 2. Fetch history and logs with instant caching
+  const fetchProductDetails = async (productId, forceFresh = false) => {
     if (!productId) {
       setHistory([]);
       setLogs([]);
       return;
     }
+
+    // Instant cache check (0ms response if cached within last 20 seconds)
+    const cached = detailsCache.current.get(productId);
+    const now = Date.now();
+    if (!forceFresh && cached && (now - cached.timestamp < 20000)) {
+      setHistory(cached.history);
+      setLogs(cached.logs);
+      return;
+    }
+
     try {
       const [histRes, logsRes] = await Promise.all([
         fetch(`/api/tracked/${productId}/history`),
         fetch(`/api/tracked/${productId}/logs`)
       ]);
 
-      if (histRes.ok) setHistory(await histRes.json());
-      if (logsRes.ok) setLogs(await logsRes.json());
+      const histData = histRes.ok ? await histRes.json() : [];
+      const logsData = logsRes.ok ? await logsRes.json() : [];
+
+      setHistory(histData);
+      setLogs(logsData);
+
+      // Save to cache
+      detailsCache.current.set(productId, {
+        history: histData,
+        logs: logsData,
+        timestamp: now
+      });
     } catch (err) {
       console.error('Failed to fetch product details:', err);
     }
@@ -60,7 +212,7 @@ export default function App() {
     }
   }, [selectedProductId]);
 
-  // Periodic poll every 15s to keep UI fresh
+  // Periodic poll every 15s to keep UI fresh and detect changes
   useEffect(() => {
     const timer = setInterval(() => {
       fetchTracked();
@@ -71,14 +223,14 @@ export default function App() {
     return () => clearInterval(timer);
   }, [selectedProductId]);
 
-  // Global Sync handler (never gets stuck, never shows blocked cursor)
+  // Global Sync handler
   const handleRefreshAll = async () => {
     setIsRefreshing(true);
     setErrorMessage(null);
     try {
       await Promise.allSettled([
         fetchTracked(),
-        selectedProductId ? fetchProductDetails(selectedProductId) : Promise.resolve()
+        selectedProductId ? fetchProductDetails(selectedProductId, true) : Promise.resolve()
       ]);
     } catch (e) {
       console.error('Refresh error:', e);
@@ -120,6 +272,8 @@ export default function App() {
       await fetch(`/api/tracked/${id}`, { method: 'DELETE' });
       const remaining = trackedProducts.filter(p => p.id !== id);
       setTrackedProducts(remaining);
+      detailsCache.current.delete(id);
+      prevProductsRef.current.delete(id);
       if (selectedProductId === id) {
         setSelectedProductId(remaining.length > 0 ? remaining[0].id : null);
       }
@@ -143,7 +297,7 @@ export default function App() {
       } else {
         await fetchTracked();
         if (selectedProductId === id) {
-          await fetchProductDetails(id);
+          await fetchProductDetails(id, true);
         }
       }
     } catch (err) {
@@ -165,6 +319,8 @@ export default function App() {
       <Navbar
         onRefreshAll={handleRefreshAll}
         isRefreshing={isRefreshing}
+        notificationCount={notifications.length}
+        onToggleNotifications={() => setIsNotifOpen(prev => !prev)}
       />
 
       <main className="app-container" style={{ flex: 1, marginTop: '2rem' }}>
@@ -221,6 +377,15 @@ export default function App() {
         />
       </main>
 
+      {/* Real-Time Price & Stock Alert Notifications */}
+      <NotificationToast
+        notifications={notifications}
+        onDismiss={handleDismissNotification}
+        isOpen={isNotifOpen}
+        onClose={() => setIsNotifOpen(false)}
+        onClearAll={handleClearAllNotifications}
+      />
+
       {/* Footer */}
       <footer style={{
         borderTop: '1px solid var(--border-subtle)',
@@ -238,3 +403,4 @@ export default function App() {
     </div>
   );
 }
+

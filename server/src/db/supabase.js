@@ -17,12 +17,49 @@ if (isSupabaseConfigured) {
   console.warn('⚠️ Supabase credentials not found in environment. Using in-memory database mock for local testing.');
 }
 
-// In-memory mock store for local development/testing when Supabase credentials aren't set
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const DB_STORE_PATH = path.join(__dirname, '../data/db_store.json');
+
+// Resilient store for local development/testing or Supabase fallback
 class InMemoryStore {
   constructor() {
     this.tracked = [];
     this.history = [];
     this.logs = [];
+    this.loadFromDisk();
+  }
+
+  loadFromDisk() {
+    try {
+      if (fs.existsSync(DB_STORE_PATH)) {
+        const raw = fs.readFileSync(DB_STORE_PATH, 'utf8');
+        const data = JSON.parse(raw);
+        this.tracked = data.tracked || [];
+        this.history = data.history || [];
+        this.logs = data.logs || [];
+      }
+    } catch (e) {
+      console.warn('[Store] Could not read db_store.json:', e.message);
+    }
+  }
+
+  saveToDisk() {
+    try {
+      const dir = path.dirname(DB_STORE_PATH);
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(DB_STORE_PATH, JSON.stringify({
+        tracked: this.tracked,
+        history: this.history,
+        logs: this.logs
+      }, null, 2), 'utf8');
+    } catch (e) {
+      console.warn('[Store] Could not save db_store.json:', e.message);
+    }
   }
 
   async claimDueProducts() {
@@ -40,6 +77,7 @@ class InMemoryStore {
         due.push({ ...p });
       }
     }
+    this.saveToDisk();
     return due;
   }
 }

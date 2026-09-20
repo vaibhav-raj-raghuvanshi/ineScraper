@@ -167,6 +167,7 @@ export const dbRepo = {
       created_at: new Date().toISOString()
     };
     mockDb.tracked.push(newProduct);
+    mockDb.saveToDisk();
     return newProduct;
   },
 
@@ -195,6 +196,7 @@ export const dbRepo = {
     const idx = mockDb.tracked.findIndex(p => p.id === id);
     if (idx !== -1) {
       mockDb.tracked.splice(idx, 1);
+      mockDb.saveToDisk();
       return true;
     }
     return false;
@@ -286,6 +288,7 @@ export const dbRepo = {
     if (p) {
       p.locked_until = null;
       if (update.last_success_at) p.last_success_at = update.last_success_at;
+      mockDb.saveToDisk();
     }
   },
 
@@ -340,6 +343,7 @@ export const dbRepo = {
       scraped_at: new Date().toISOString()
     };
     mockDb.history.push(row);
+    mockDb.saveToDisk();
     return row;
   },
 
@@ -416,6 +420,7 @@ export const dbRepo = {
       error_message: 'In-progress or interrupted run',
       metadata: null
     });
+    mockDb.saveToDisk();
     return logId;
   },
 
@@ -454,6 +459,7 @@ export const dbRepo = {
     const log = mockDb.logs.find(l => l.id === logId);
     if (log) {
       Object.assign(log, updateData);
+      mockDb.saveToDisk();
     }
   },
 
