@@ -196,38 +196,13 @@ node server/src/scraper/headed_runner.js --product 433 --fail-first
 
 ---
 
-## Production Deployment & Cron Setup
+## Production Deployment & Hosting
 
-### 1. Database (Supabase)
-- Create a Supabase project and execute `server/src/db/schema.sql`.
+For detailed, step-by-step instructions with all environment variables, refer to **[DEPLOYMENT.md](file:///DEPLOYMENT.md)**.
 
-### 2. Backend (Render.com)
-- Create a **Web Service** pointing to your repository.
-- Build Command: `cd server && npm install && npx playwright install chromium`
-- Start Command: `cd server && npm start`
-- Add Environment Variables:
-  - `PORT`: `4000`
-  - `SUPABASE_URL`: `<your-supabase-url>`
-  - `SUPABASE_SERVICE_ROLE_KEY`: `<your-service-role-key>`
-  - `CRON_SECRET`: `<secure-random-string>`
+### Summary:
+1. **Supabase**: Run SQL schema in `server/src/db/schema.sql` and execute table grants.
+2. **Render (Backend)**: Connect `vaibhav-raj-raghuvanshi/ineScraper`, set Root Directory to `server`, Runtime to **Docker** (uses `server/Dockerfile` with Playwright pre-installed).
+3. **Vercel (Frontend)**: Connect `vaibhav-raj-raghuvanshi/ineScraper`, set Root Directory to `client`, Framework `Vite`, and add `VITE_API_URL`.
+4. **cron-job.org**: Set up the 2-hour scrape cycle (`POST /api/cron/scrape`) and 10-minute keep-warm ping (`GET /health`).
 
-### 3. Frontend (Vercel)
-- Import repository on Vercel.
-- Root Directory: `client`
-- Build Command: `npm run build`
-- Output Directory: `dist`
-- Set `VITE_API_BASE_URL` or configure rewrites to your Render backend URL.
-
-### 4. Scheduled Jobs (cron-job.org)
-Create two jobs on cron-job.org:
-1. **Scrape Trigger**:
-   - **URL**: `https://<your-render-url>/api/cron/scrape`
-   - **Method**: `POST`
-   - **Schedule**: `0 */2 * * *` (Every 2 hours)
-   - **Header**: `x-cron-secret: <your-cron-secret>`
-   - *Note*: Render returns `202 Accepted` immediately, so cron-job.org never times out.
-2. **Keep-Warm Ping**:
-   - **URL**: `https://<your-render-url>/health`
-   - **Method**: `GET`
-   - **Schedule**: Every 10 minutes (`*/10 * * * *`)
-   - Keeps Render's free-tier instance warm and awake.
