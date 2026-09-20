@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Activity, ShieldCheck, Clock, RefreshCw, Zap } from 'lucide-react';
+import { Activity, ShieldCheck, Clock, RefreshCw, Database, CheckCircle2, AlertCircle } from 'lucide-react';
 
-export default function Navbar({ onRefreshAll, isRefreshing }) {
+export default function Navbar({ onRefreshAll, isRefreshing, onOpenSupabaseModal, supabaseConnected }) {
   const [health, setHealth] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const checkHealth = async () => {
     try {
@@ -19,9 +18,11 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
 
   useEffect(() => {
     checkHealth();
-    const timer = setInterval(checkHealth, 20000);
+    const timer = setInterval(checkHealth, 15000);
     return () => clearInterval(timer);
   }, []);
+
+  const isDbConnected = supabaseConnected || health?.supabaseConnected;
 
   return (
     <header className="header-glass">
@@ -44,11 +45,39 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
               <span style={{ fontSize: '1.25rem', fontWeight: 300, color: 'var(--accent-cyan)' }}>Price Pulse</span>
               <span className="brand-badge">2-HR CRON</span>
             </div>
-            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Automated Scraper & Reliability Monitor</p>
+            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              1,000 Live Catalog Products · Automated Scraper & Reliability Monitor
+            </p>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          {/* Supabase Connection Status / Setup Button */}
+          <button
+            type="button"
+            onClick={onOpenSupabaseModal}
+            className="btn btn-secondary"
+            style={{
+              padding: '0.45rem 0.85rem',
+              fontSize: '0.8rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              borderColor: isDbConnected ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 158, 11, 0.4)'
+            }}
+            title="Configure or view Supabase PostgreSQL connection"
+          >
+            <Database size={15} color={isDbConnected ? 'var(--accent-emerald)' : 'var(--accent-amber)'} />
+            <span>
+              Supabase: {isDbConnected ? 'Connected' : 'Configure'}
+            </span>
+            {isDbConnected ? (
+              <CheckCircle2 size={13} color="var(--accent-emerald)" />
+            ) : (
+              <AlertCircle size={13} color="var(--accent-amber)" />
+            )}
+          </button>
+
           {/* Keep-Warm Health Indicator */}
           <div style={{
             display: 'flex',
@@ -62,7 +91,7 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
           }}>
             <span className={`pulse-dot ${health?.status === 'healthy' ? 'emerald' : 'amber'}`} />
             <span style={{ color: 'var(--text-secondary)' }}>
-              {health ? 'Backend Live (Keep-Warm Active)' : 'Connecting...'}
+              {health ? 'Backend Live' : 'Connecting...'}
             </span>
           </div>
 
@@ -78,15 +107,16 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
             <span>0 */2 * * *</span>
           </div>
 
-          {/* Manual Refresh Button */}
+          {/* Fix: Sync Button never shows blocked/not-allowed cursor */}
           <button
-            className="btn btn-secondary"
+            type="button"
+            className="btn btn-secondary btn-sync"
             onClick={onRefreshAll}
-            disabled={isRefreshing}
-            title="Refresh active dashboard data"
+            title="Sync live dashboard data with backend and store"
+            style={{ cursor: isRefreshing ? 'wait' : 'pointer' }}
           >
-            <RefreshCw size={15} className={isRefreshing ? 'animate-spin' : ''} />
-            <span>Sync</span>
+            <RefreshCw size={15} className={isRefreshing ? 'animate-spin' : ''} color="var(--accent-cyan)" />
+            <span>{isRefreshing ? 'Syncing...' : 'Sync'}</span>
           </button>
         </div>
       </div>

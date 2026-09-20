@@ -1,53 +1,64 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Plus, Check, ExternalLink, Loader2, Sparkles } from 'lucide-react';
+import { Search, Plus, Check, ExternalLink, Loader2, Sparkles, ChevronLeft, ChevronRight, Layers, Filter } from 'lucide-react';
 
 export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
   const [query, setQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const [results, setResults] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(24);
+  const [total, setTotal] = useState(1000);
+  const [totalPages, setTotalPages] = useState(42);
+  const [catalogTotal, setCatalogTotal] = useState(1000);
   const [isLoading, setIsLoading] = useState(false);
   const [trackingIds, setTrackingIds] = useState(new Set());
   const debounceRef = useRef(null);
 
-  useEffect(() => {
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-
-    if (!query.trim()) {
-      // Load initial catalog preview
-      fetchInitialCatalog();
-      return;
-    }
-
-    setIsLoading(true);
-    debounceRef.current = setTimeout(async () => {
-      try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query.trim())}&pageSize=12`);
-        if (res.ok) {
-          const data = await res.json();
-          setResults(data.items || []);
-        }
-      } catch (err) {
-        console.error('Search query failed:', err);
-      } finally {
-        setIsLoading(false);
-      }
-    }, 300);
-
-    return () => clearTimeout(debounceRef.current);
-  }, [query]);
-
-  const fetchInitialCatalog = async () => {
+  const fetchProducts = async (searchQuery, category, pageNum, size) => {
     setIsLoading(true);
     try {
-      const res = await fetch('/api/search?page=1&pageSize=8');
+      const params = new URLSearchParams({
+        q: searchQuery.trim(),
+        category: category !== 'all' ? category : '',
+        page: pageNum.toString(),
+        pageSize: size.toString()
+      });
+      const res = await fetch(`/api/search?${params.toString()}`);
       if (res.ok) {
         const data = await res.json();
         setResults(data.items || []);
+        setTotal(data.total);
+        setTotalPages(data.totalPages);
+        setCatalogTotal(data.catalogTotal || 1000);
+        if (data.categories && data.categories.length > 0) {
+          setCategories(data.categories);
+        }
       }
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error('Failed to load catalog products:', err);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  // Debounced search query or category change
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current);
+
+    debounceRef.current = setTimeout(() => {
+      setPage(1); // Reset to page 1 on filter/search change
+      fetchProducts(query, selectedCategory, 1, pageSize);
+    }, 250);
+
+    return () => clearTimeout(debounceRef.current);
+  }, [query, selectedCategory, pageSize]);
+
+  // Page navigation
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > totalPages) return;
+    setPage(newPage);
+    fetchProducts(query, selectedCategory, newPage, pageSize);
   };
 
   const handleTrack = async (product) => {
@@ -64,37 +75,39 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
   };
 
   return (
-    <div className="glass-panel" style={{ padding: '1.5rem', marginBottom: '2rem' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+    <div className="glass-panel" style={{ padding: '1.75rem', marginBottom: '2rem' }}>
+      {/* Search Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <Sparkles size={18} color="var(--accent-cyan)" />
-            Search & Track INE Products
-          </h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+            <Sparkles size={20} color="var(--accent-cyan)" />
+            <h2 style={{ fontSize: '1.35rem' }}>Catalog Explorer & Product Tracker</h2>
+            <span className="brand-badge">{catalogTotal.toLocaleString()} STORE ITEMS</span>
+          </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-            Find products from INE's mock catalog by full or partial name. Once tracked, prices are scraped every 2 hours.
+            Browse and search all {catalogTotal.toLocaleString()} real products from INE's mock storefront. Select any item to scrape and track its live price.
           </p>
         </div>
 
         {/* Search Input Box */}
-        <div style={{ position: 'relative', width: '100%', maxWidth: '380px' }}>
+        <div style={{ position: 'relative', width: '100%', maxWidth: '420px' }}>
           <Search size={17} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
           <input
             type="text"
-            placeholder="Search keyboards, watches, totes..."
+            placeholder="Search all 1,000 items by name, brand, SKU..."
             value={query}
             onChange={e => setQuery(e.target.value)}
             style={{
               width: '100%',
-              padding: '0.7rem 1rem 0.7rem 2.6rem',
+              padding: '0.75rem 1rem 0.75rem 2.75rem',
               borderRadius: '12px',
               border: '1px solid var(--border-subtle)',
-              background: 'rgba(9, 13, 22, 0.6)',
+              background: 'rgba(9, 13, 22, 0.75)',
               color: 'var(--text-primary)',
               fontSize: '0.9rem',
               outline: 'none',
               fontFamily: 'var(--font-sans)',
-              transition: 'border-color 0.2s'
+              transition: 'all 0.2s ease'
             }}
             onFocus={e => e.target.style.borderColor = 'var(--accent-cyan)'}
             onBlur={e => e.target.style.borderColor = 'var(--border-subtle)'}
@@ -105,12 +118,126 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
         </div>
       </div>
 
-      {/* Results Grid */}
+      {/* Category Pills Strip */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.5rem',
+        overflowX: 'auto',
+        paddingBottom: '0.75rem',
+        marginBottom: '1rem',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+      }}>
+        <button
+          type="button"
+          onClick={() => setSelectedCategory('all')}
+          style={{
+            padding: '0.4rem 0.9rem',
+            borderRadius: '9999px',
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            border: '1px solid',
+            borderColor: selectedCategory === 'all' ? 'var(--accent-cyan)' : 'var(--border-subtle)',
+            background: selectedCategory === 'all' ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.03)',
+            color: selectedCategory === 'all' ? '#38bdf8' : 'var(--text-secondary)',
+            whiteSpace: 'nowrap',
+            transition: 'all 0.15s ease'
+          }}
+        >
+          All Items ({catalogTotal})
+        </button>
+
+        {categories.map(cat => {
+          const isCatSelected = selectedCategory === cat.toLowerCase();
+          return (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setSelectedCategory(cat.toLowerCase())}
+              style={{
+                padding: '0.4rem 0.9rem',
+                borderRadius: '9999px',
+                fontSize: '0.8rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                border: '1px solid',
+                borderColor: isCatSelected ? 'var(--accent-cyan)' : 'var(--border-subtle)',
+                background: isCatSelected ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.03)',
+                color: isCatSelected ? '#38bdf8' : 'var(--text-secondary)',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.15s ease'
+              }}
+            >
+              {cat}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Pagination Bar Top */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        fontSize: '0.85rem',
+        color: 'var(--text-muted)',
+        marginBottom: '1rem',
+        flexWrap: 'wrap',
+        gap: '0.75rem'
+      }}>
+        <div>
+          Showing <strong>{results.length > 0 ? (page - 1) * pageSize + 1 : 0} – {Math.min(page * pageSize, total)}</strong> of <strong>{total}</strong> products
+          {query && <span> matching <em>"{query}"</em></span>}
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <select
+            value={pageSize}
+            onChange={e => setPageSize(Number(e.target.value))}
+            style={{
+              background: 'rgba(9, 13, 22, 0.8)',
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: '8px',
+              padding: '0.35rem 0.6rem',
+              fontSize: '0.8rem',
+              outline: 'none'
+            }}
+          >
+            <option value={12}>12 per page</option>
+            <option value={24}>24 per page</option>
+            <option value={48}>48 per page</option>
+            <option value={96}>96 per page</option>
+          </select>
+
+          <button
+            className="btn btn-secondary"
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page <= 1}
+            style={{ padding: '0.35rem 0.65rem' }}
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <span style={{ fontFamily: 'var(--font-mono)', padding: '0 0.5rem' }}>
+            Page {page} of {totalPages}
+          </span>
+          <button
+            className="btn btn-secondary"
+            onClick={() => handlePageChange(page + 1)}
+            disabled={page >= totalPages}
+            style={{ padding: '0.35rem 0.65rem' }}
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      </div>
+
+      {/* Products Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-        gap: '1rem',
-        marginTop: '1.25rem'
+        gap: '1rem'
       }}>
         {results.map(product => {
           const isTracked = trackedExternalIds.includes(product.id);
@@ -120,7 +247,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
             <div
               key={product.id}
               style={{
-                background: 'rgba(15, 23, 42, 0.6)',
+                background: 'rgba(15, 23, 42, 0.65)',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
                 padding: '1.1rem',
@@ -145,21 +272,30 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
                   }}>
                     {product.category || 'General'}
                   </span>
-                  <a
-                    href={product.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}
-                    title="View on INE Mock Store"
-                  >
-                    <ExternalLink size={14} />
-                  </a>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{
+                      fontSize: '0.7rem',
+                      fontFamily: 'var(--font-mono)',
+                      color: 'var(--text-muted)'
+                    }}>
+                      #{product.id}
+                    </span>
+                    <a
+                      href={product.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }}
+                      title="View on INE Mock Store"
+                    >
+                      <ExternalLink size={14} />
+                    </a>
+                  </div>
                 </div>
 
                 <h3 style={{ fontSize: '1rem', marginBottom: '0.35rem', lineHeight: '1.3' }}>
                   {product.name}
                 </h3>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.75rem' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
                   {product.brand} · SKU {product.sku}
                 </p>
                 <p style={{
@@ -169,13 +305,15 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
-                  marginBottom: '1rem'
+                  marginBottom: '1rem',
+                  lineHeight: '1.4'
                 }}>
                   {product.description}
                 </p>
               </div>
 
               <button
+                type="button"
                 className={`btn ${isTracked ? 'btn-secondary' : 'btn-primary'}`}
                 onClick={() => handleTrack(product)}
                 disabled={isTracked || isTracking}
@@ -202,6 +340,39 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
           );
         })}
       </div>
+
+      {/* Pagination Bar Bottom */}
+      {totalPages > 1 && (
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.75rem',
+          marginTop: '1.5rem',
+          paddingTop: '1rem',
+          borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+        }}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => handlePageChange(page - 1)}
+            disabled={page <= 1}
+          >
+            <ChevronLeft size={16} />
+            <span>Previous</span>
+          </button>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+            Page {page} of {totalPages}
+          </span>
+          <button
+            className="btn btn-secondary"
+            onClick={() => handlePageChange(page + 1)}
+            disabled={page >= totalPages}
+          >
+            <span>Next</span>
+            <ChevronRight size={16} />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

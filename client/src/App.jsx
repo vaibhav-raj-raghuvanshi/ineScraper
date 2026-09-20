@@ -4,6 +4,7 @@ import ProductSearch from './components/ProductSearch';
 import TrackedProductsList from './components/TrackedProductsList';
 import PriceChart from './components/PriceChart';
 import ScrapeLogsTable from './components/ScrapeLogsTable';
+import SupabaseModal from './components/SupabaseModal';
 
 export default function App() {
   const [trackedProducts, setTrackedProducts] = useState([]);
@@ -13,6 +14,8 @@ export default function App() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [scrapingIds, setScrapingIds] = useState(new Set());
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isSupabaseModalOpen, setIsSupabaseModalOpen] = useState(false);
+  const [supabaseConnected, setSupabaseConnected] = useState(false);
 
   // 1. Fetch tracked products on mount
   const fetchTracked = async () => {
@@ -21,7 +24,6 @@ export default function App() {
       if (res.ok) {
         const data = await res.json();
         setTrackedProducts(data);
-        // Default select first product if none selected
         if (!selectedProductId && data.length > 0) {
           setSelectedProductId(data[0].id);
         }
@@ -31,7 +33,7 @@ export default function App() {
     }
   };
 
-  // 2. Fetch history and logs whenever selected product changes
+  // 2. Fetch history and logs for active product
   const fetchProductDetails = async (productId) => {
     if (!productId) {
       setHistory([]);
@@ -51,8 +53,19 @@ export default function App() {
     }
   };
 
+  const checkHealth = async () => {
+    try {
+      const res = await fetch('/health');
+      if (res.ok) {
+        const data = await res.json();
+        setSupabaseConnected(Boolean(data.supabaseConnected));
+      }
+    } catch (_) {}
+  };
+
   useEffect(() => {
     fetchTracked();
+    checkHealth();
   }, []);
 
   useEffect(() => {
@@ -68,19 +81,25 @@ export default function App() {
       if (selectedProductId) {
         fetchProductDetails(selectedProductId);
       }
+      checkHealth();
     }, 15000);
     return () => clearInterval(timer);
   }, [selectedProductId]);
 
+  // Global Sync handler (never gets stuck, never shows blocked cursor)
   const handleRefreshAll = async () => {
     setIsRefreshing(true);
+    setErrorMessage(null);
     try {
-      await fetchTracked();
-      if (selectedProductId) {
-        await fetchProductDetails(selectedProductId);
-      }
+      await Promise.allSettled([
+        fetchTracked(),
+        selectedProductId ? fetchProductDetails(selectedProductId) : Promise.resolve(),
+        checkHealth()
+      ]);
+    } catch (e) {
+      console.error('Refresh error:', e);
     } finally {
-      setIsRefreshing(false);
+      setTimeout(() => setIsRefreshing(false), 300);
     }
   };
 
@@ -125,6 +144,7 @@ export default function App() {
     }
   };
 
+  // Manual scrape handler (forces live scrape without TTL block)
   const handleManualScrape = async (id) => {
     setErrorMessage(null);
     setScrapingIds(prev => new Set(prev).add(id));
@@ -158,10 +178,15 @@ export default function App() {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Navbar onRefreshAll={handleRefreshAll} isRefreshing={isRefreshing} />
+      <Navbar
+        onRefreshAll={handleRefreshAll}
+        isRefreshing={isRefreshing}
+        onOpenSupabaseModal={() => setIsSupabaseModalOpen(true)}
+        supabaseConnected={supabaseConnected}
+      />
 
       <main className="app-container" style={{ flex: 1, marginTop: '2rem' }}>
-        {/* Global Alert Notification */}
+        {/* Global Error Alert */}
         {errorMessage && (
           <div style={{
             background: 'rgba(244, 63, 94, 0.15)',
@@ -185,7 +210,7 @@ export default function App() {
           </div>
         )}
 
-        {/* 1. Search & Add Section */}
+        {/* 1. Full 1,000 Catalog Search & Track Section */}
         <ProductSearch
           trackedExternalIds={trackedExternalIds}
           onTrackProduct={handleTrackProduct}
@@ -213,6 +238,16 @@ export default function App() {
           logs={logs}
         />
       </main>
+
+      {/* Supabase Configuration Modal */}
+      <SupabaseModal
+        isOpen={isSupabaseModalOpen}
+        onClose={() => setIsSupabaseModalOpen(false)}
+        onSaveSuccess={() => {
+          checkHealth();
+          fetchTracked();
+        }}
+      />
 
       {/* Footer */}
       <footer style={{

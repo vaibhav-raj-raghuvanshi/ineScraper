@@ -5,8 +5,9 @@ import { dbRepo } from '../db/repo.js';
 // Parse CLI flags
 const args = process.argv.slice(2);
 const productIdArg = args.find((_, i) => args[i - 1] === '--product') || '433';
-const shouldSimulateFailure = args.includes('--fail-first') || true; // Enabled by default for camera demonstration
+const shouldSimulateFailure = args.includes('--fail-first') || true; // Enabled for evaluation video recording
 const slowMoVal = parseInt(args.find((_, i) => args[i - 1] === '--slowMo') || '200', 10);
+const storeBase = process.env.STORE_BASE_URL || 'https://demo.inelabteamdev.com';
 
 console.log('='.repeat(70));
 console.log('  INE STORE — OBSERVABLE HEADED SCRAPER RUN');
@@ -23,16 +24,33 @@ async function runHeadedDemo() {
     args: ['--window-size=1280,800', '--start-maximized']
   });
 
-  // Ensure mock/live product exists in DB for foreign key logging
+  // Fetch actual live product details from store API
   let product = await dbRepo.getTrackedProductByExternalId(productIdArg);
   if (!product) {
-    console.log(`Registering product ${productIdArg} in database for tracking...`);
+    console.log(`Fetching actual product metadata from ${storeBase}/api/product/${productIdArg}...`);
+    let actualName = `Product #${productIdArg}`;
+    let actualCategory = 'Store Item';
+    let actualBrand = 'INE Store';
+
+    try {
+      const pRes = await fetch(`${storeBase}/api/product/${productIdArg}`);
+      if (pRes.ok) {
+        const pData = await pRes.json();
+        actualName = pData.name || actualName;
+        actualCategory = pData.category || actualCategory;
+        actualBrand = pData.brand || actualBrand;
+        console.log(`✓ Fetched live metadata: "${actualName}" (${actualBrand} · ${actualCategory})`);
+      }
+    } catch (e) {
+      console.warn('Could not pre-fetch metadata:', e.message);
+    }
+
     product = await dbRepo.addTrackedProduct({
       external_id: Number(productIdArg),
-      name: `Demo Product ${productIdArg}`,
-      url: `https://demo.inelabteamdev.com/product/${productIdArg}`,
-      category: 'Peripherals',
-      brand: 'Demo'
+      name: actualName,
+      url: `${storeBase}/product/${productIdArg}`,
+      category: actualCategory,
+      brand: actualBrand
     });
   }
 
@@ -73,7 +91,7 @@ async function runHeadedDemo() {
   console.log(`• Final Outcome:   ${result.outcome.toUpperCase()}`);
   console.log(`• Total Attempts:  ${result.attempts}`);
   console.log(`• Duration:        ${result.durationMs}ms`);
-  console.log(`• Extracted Price: ${result.price ? '₹' + result.price : 'None'}`);
+  console.log(`• Extracted Price: ${result.price ? '₹' + result.price.toLocaleString('en-IN') : 'None'}`);
   console.log(`• In Stock:        ${result.inStock ? 'YES' : 'NO'}`);
   console.log(`• Error / Note:    ${result.error || 'None (Clean scrape)'}`);
 
