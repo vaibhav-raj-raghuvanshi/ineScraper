@@ -27,20 +27,24 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
       <div className="nav-content">
         <div className="brand-logo">
           <div style={{
-            background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
+            background: '#18181b',
+            border: '1px solid #27272a',
             padding: '0.55rem',
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 0 15px rgba(6, 182, 212, 0.4)'
+            justifyContent: 'center'
           }}>
-            <Activity size={22} color="#fff" />
+            <Activity size={20} color="#fafafa" />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em' }}>INE Store</span>
-              <span style={{ fontSize: '1.25rem', fontWeight: 300, color: 'var(--accent-cyan)' }}>Price Pulse</span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 800, letterSpacing: '-0.02em', color: '#fafafa' }}>
+                INE Store
+              </span>
+              <span style={{ fontSize: '1.25rem', fontWeight: 300, color: '#a1a1aa' }}>
+                Price Pulse
+              </span>
               <span className="brand-badge">2-HR CRON</span>
             </div>
             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -50,21 +54,19 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-          {/* Keep-Warm Health Indicator */}
+          {/* Keep-Warm Health Indicator (Green dot removed as requested) */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.6rem',
+            gap: '0.4rem',
             padding: '0.45rem 0.85rem',
             borderRadius: '9999px',
-            background: 'rgba(255, 255, 255, 0.04)',
+            background: '#141417',
             border: '1px solid var(--border-subtle)',
-            fontSize: '0.8rem'
+            fontSize: '0.8rem',
+            color: 'var(--text-secondary)'
           }}>
-            <span className={`pulse-dot ${health?.status === 'healthy' ? 'emerald' : 'amber'}`} />
-            <span style={{ color: 'var(--text-secondary)' }}>
-              {health ? 'Backend Live' : 'Connecting...'}
-            </span>
+            <span>{health ? 'Backend Live' : 'Connecting...'}</span>
           </div>
 
           {/* Schedule Badge */}
@@ -87,7 +89,7 @@ export default function Navbar({ onRefreshAll, isRefreshing }) {
             title="Sync live dashboard data with backend and store"
             style={{ cursor: isRefreshing ? 'wait' : 'pointer' }}
           >
-            <RefreshCw size={15} className={isRefreshing ? 'animate-spin' : ''} color="var(--accent-cyan)" />
+            <RefreshCw size={15} className={isRefreshing ? 'animate-spin' : ''} color="#fafafa" />
             <span>{isRefreshing ? 'Syncing...' : 'Sync'}</span>
           </button>
         </div>

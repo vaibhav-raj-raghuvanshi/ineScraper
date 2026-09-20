@@ -228,11 +228,11 @@ export default function App() {
         textAlign: 'center',
         fontSize: '0.8rem',
         color: 'var(--text-muted)',
-        background: 'rgba(9, 13, 22, 0.9)'
+        background: '#09090b'
       }}>
         <p>INE Software Engineer Intern Assignment — Product Price Tracker</p>
         <p style={{ marginTop: '0.25rem' }}>
-          Mock Store: <a href="https://demo.inelabteamdev.com" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-cyan)' }}>demo.inelabteamdev.com</a> · Cron Schedule: <code>0 */2 * * *</code>
+          Mock Store: <a href="https://demo.inelabteamdev.com" target="_blank" rel="noreferrer" style={{ color: '#e4e4e7', textDecoration: 'underline' }}>demo.inelabteamdev.com</a> · Cron Schedule: <code>0 */2 * * *</code>
         </p>
       </footer>
     </div>

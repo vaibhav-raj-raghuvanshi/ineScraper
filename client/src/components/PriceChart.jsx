@@ -46,17 +46,17 @@ export default function PriceChart({ product, history }) {
       const data = payload[0].payload;
       return (
         <div style={{
-          background: 'rgba(9, 13, 22, 0.95)',
-          border: '1px solid var(--border-glow)',
+          background: '#09090b',
+          border: '1px solid #27272a',
           borderRadius: '10px',
           padding: '0.85rem 1rem',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.6)',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.8)',
           backdropFilter: 'blur(10px)'
         }}>
           <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
             {data.dateLabel}
           </p>
-          <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#38bdf8', marginBottom: '0.25rem' }}>
+          <div style={{ fontSize: '1.2rem', fontWeight: 800, color: '#fafafa', marginBottom: '0.25rem' }}>
             ₹{data.price.toLocaleString('en-IN')}
           </div>
           {data.mrp && (
@@ -86,7 +86,7 @@ export default function PriceChart({ product, history }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <h2 style={{ fontSize: '1.3rem' }}>{product.name}</h2>
+            <h2 style={{ fontSize: '1.3rem', color: '#fafafa' }}>{product.name}</h2>
             <span className="brand-badge">ID: {product.external_id}</span>
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
@@ -130,7 +130,7 @@ export default function PriceChart({ product, history }) {
             textAlign: 'right'
           }}>
             <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase' }}>Valid Snapshots</span>
-            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--accent-cyan)' }}>
+            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#fafafa' }}>
               {chartData.length}
             </div>
           </div>
@@ -144,20 +144,20 @@ export default function PriceChart({ product, history }) {
             <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
               <defs>
                 <linearGradient id="priceGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.4} />
-                  <stop offset="95%" stopColor="#2563eb" stopOpacity={0.0} />
+                  <stop offset="5%" stopColor="#ffffff" stopOpacity={0.2} />
+                  <stop offset="95%" stopColor="#ffffff" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.05)" vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" vertical={false} />
               <XAxis
                 dataKey="dateLabel"
-                stroke="#64748b"
+                stroke="#71717a"
                 fontSize={12}
                 tickLine={false}
                 axisLine={{ stroke: 'rgba(255, 255, 255, 0.1)' }}
               />
               <YAxis
-                stroke="#64748b"
+                stroke="#71717a"
                 fontSize={12}
                 tickLine={false}
                 axisLine={{ stroke: 'rgba(255, 255, 255, 0.1)' }}
@@ -168,12 +168,12 @@ export default function PriceChart({ product, history }) {
               <Area
                 type="monotone"
                 dataKey="price"
-                stroke="#06b6d4"
-                strokeWidth={3}
+                stroke="#ffffff"
+                strokeWidth={2.5}
                 fillOpacity={1}
                 fill="url(#priceGradient)"
-                dot={{ stroke: '#38bdf8', strokeWidth: 2, r: 4, fill: '#090d16' }}
-                activeDot={{ stroke: '#fff', strokeWidth: 2, r: 6, fill: '#06b6d4' }}
+                dot={{ stroke: '#ffffff', strokeWidth: 2, r: 3, fill: '#000000' }}
+                activeDot={{ stroke: '#ffffff', strokeWidth: 2, r: 5, fill: '#ffffff' }}
                 connectNulls={false} // Leave honest gaps on missing data!
               />
             </AreaChart>
@@ -186,7 +186,7 @@ export default function PriceChart({ product, history }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'rgba(9, 13, 22, 0.4)',
+          background: '#0d0d10',
           borderRadius: '12px',
           border: '1px dashed var(--border-subtle)',
           color: 'var(--text-muted)'

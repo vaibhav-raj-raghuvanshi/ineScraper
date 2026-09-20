@@ -35,8 +35,8 @@ export default function ScrapeLogsTable({ product, logs }) {
     <div className="glass-panel" style={{ padding: '1.5rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <ShieldAlert size={18} color="var(--accent-cyan)" />
+          <h2 style={{ fontSize: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fafafa' }}>
+            <ShieldAlert size={18} color="#fafafa" />
             Scrape Execution Audit Log — {product.name}
           </h2>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>

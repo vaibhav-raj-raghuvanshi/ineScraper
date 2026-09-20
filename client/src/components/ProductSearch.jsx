@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Plus, Check, ExternalLink, Loader2, Sparkles, ChevronLeft, ChevronRight, Layers, Filter } from 'lucide-react';
+import { Search, Plus, Check, ExternalLink, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
   const [query, setQuery] = useState('');
@@ -42,19 +42,17 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
     }
   };
 
-  // Debounced search query or category change
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
 
     debounceRef.current = setTimeout(() => {
-      setPage(1); // Reset to page 1 on filter/search change
+      setPage(1);
       fetchProducts(query, selectedCategory, 1, pageSize);
     }, 250);
 
     return () => clearTimeout(debounceRef.current);
   }, [query, selectedCategory, pageSize]);
 
-  // Page navigation
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > totalPages) return;
     setPage(newPage);
@@ -76,12 +74,11 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
 
   return (
     <div className="glass-panel" style={{ padding: '1.75rem', marginBottom: '2rem' }}>
-      {/* Search Header */}
+      {/* Search Header (Star removed) */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-            <Sparkles size={20} color="var(--accent-cyan)" />
-            <h2 style={{ fontSize: '1.35rem' }}>Catalog Explorer & Product Tracker</h2>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.25rem' }}>
+            <h2 style={{ fontSize: '1.35rem', color: '#fafafa' }}>Catalog Explorer & Product Tracker</h2>
             <span className="brand-badge">{catalogTotal.toLocaleString()} STORE ITEMS</span>
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
@@ -102,18 +99,18 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
               padding: '0.75rem 1rem 0.75rem 2.75rem',
               borderRadius: '12px',
               border: '1px solid var(--border-subtle)',
-              background: 'rgba(9, 13, 22, 0.75)',
+              background: '#09090b',
               color: 'var(--text-primary)',
               fontSize: '0.9rem',
               outline: 'none',
               fontFamily: 'var(--font-sans)',
               transition: 'all 0.2s ease'
             }}
-            onFocus={e => e.target.style.borderColor = 'var(--accent-cyan)'}
+            onFocus={e => e.target.style.borderColor = '#52525b'}
             onBlur={e => e.target.style.borderColor = 'var(--border-subtle)'}
           />
           {isLoading && (
-            <Loader2 size={16} className="animate-spin" style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--accent-cyan)' }} />
+            <Loader2 size={16} className="animate-spin" style={{ position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#fafafa' }} />
           )}
         </div>
       </div>
@@ -126,21 +123,21 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
         overflowX: 'auto',
         paddingBottom: '0.75rem',
         marginBottom: '1rem',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
+        borderBottom: '1px solid var(--border-subtle)'
       }}>
         <button
           type="button"
           onClick={() => setSelectedCategory('all')}
           style={{
-            padding: '0.4rem 0.9rem',
+            padding: '0.4rem 0.95rem',
             borderRadius: '9999px',
             fontSize: '0.8rem',
             fontWeight: 600,
             cursor: 'pointer',
             border: '1px solid',
-            borderColor: selectedCategory === 'all' ? 'var(--accent-cyan)' : 'var(--border-subtle)',
-            background: selectedCategory === 'all' ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-            color: selectedCategory === 'all' ? '#38bdf8' : 'var(--text-secondary)',
+            borderColor: selectedCategory === 'all' ? '#ffffff' : 'var(--border-subtle)',
+            background: selectedCategory === 'all' ? '#ffffff' : '#121214',
+            color: selectedCategory === 'all' ? '#000000' : 'var(--text-secondary)',
             whiteSpace: 'nowrap',
             transition: 'all 0.15s ease'
           }}
@@ -156,15 +153,15 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
               type="button"
               onClick={() => setSelectedCategory(cat.toLowerCase())}
               style={{
-                padding: '0.4rem 0.9rem',
+                padding: '0.4rem 0.95rem',
                 borderRadius: '9999px',
                 fontSize: '0.8rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 border: '1px solid',
-                borderColor: isCatSelected ? 'var(--accent-cyan)' : 'var(--border-subtle)',
-                background: isCatSelected ? 'rgba(6, 182, 212, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                color: isCatSelected ? '#38bdf8' : 'var(--text-secondary)',
+                borderColor: isCatSelected ? '#ffffff' : 'var(--border-subtle)',
+                background: isCatSelected ? '#ffffff' : '#121214',
+                color: isCatSelected ? '#000000' : 'var(--text-secondary)',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.15s ease'
               }}
@@ -187,7 +184,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
         gap: '0.75rem'
       }}>
         <div>
-          Showing <strong>{results.length > 0 ? (page - 1) * pageSize + 1 : 0} – {Math.min(page * pageSize, total)}</strong> of <strong>{total}</strong> products
+          Showing <strong style={{ color: '#fafafa' }}>{results.length > 0 ? (page - 1) * pageSize + 1 : 0} – {Math.min(page * pageSize, total)}</strong> of <strong style={{ color: '#fafafa' }}>{total}</strong> products
           {query && <span> matching <em>"{query}"</em></span>}
         </div>
 
@@ -196,8 +193,8 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
             value={pageSize}
             onChange={e => setPageSize(Number(e.target.value))}
             style={{
-              background: 'rgba(9, 13, 22, 0.8)',
-              color: 'var(--text-secondary)',
+              background: '#121215',
+              color: 'var(--text-primary)',
               border: '1px solid var(--border-subtle)',
               borderRadius: '8px',
               padding: '0.35rem 0.6rem',
@@ -219,7 +216,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
           >
             <ChevronLeft size={16} />
           </button>
-          <span style={{ fontFamily: 'var(--font-mono)', padding: '0 0.5rem' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', padding: '0 0.5rem', color: '#fafafa' }}>
             Page {page} of {totalPages}
           </span>
           <button
@@ -247,10 +244,10 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
             <div
               key={product.id}
               style={{
-                background: 'rgba(15, 23, 42, 0.65)',
+                background: '#0d0d10',
                 border: '1px solid var(--border-subtle)',
                 borderRadius: '12px',
-                padding: '1.1rem',
+                padding: '1.15rem',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -259,22 +256,23 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.65rem' }}>
                   <span style={{
                     fontSize: '0.7rem',
                     textTransform: 'uppercase',
                     letterSpacing: '0.05em',
                     padding: '0.2rem 0.5rem',
                     borderRadius: '6px',
-                    background: 'rgba(56, 189, 248, 0.1)',
-                    color: '#38bdf8',
-                    fontWeight: 600
+                    background: '#1c1c21',
+                    color: '#d4d4d8',
+                    fontWeight: 600,
+                    border: '1px solid rgba(255, 255, 255, 0.06)'
                   }}>
                     {product.category || 'General'}
                   </span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span style={{
-                      fontSize: '0.7rem',
+                      fontSize: '0.72rem',
                       fontFamily: 'var(--font-mono)',
                       color: 'var(--text-muted)'
                     }}>
@@ -292,7 +290,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
                   </div>
                 </div>
 
-                <h3 style={{ fontSize: '1rem', marginBottom: '0.35rem', lineHeight: '1.3' }}>
+                <h3 style={{ fontSize: '1.02rem', marginBottom: '0.35rem', lineHeight: '1.3', color: '#fafafa' }}>
                   {product.name}
                 </h3>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
@@ -305,7 +303,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
-                  marginBottom: '1rem',
+                  marginBottom: '1.15rem',
                   lineHeight: '1.4'
                 }}>
                   {product.description}
@@ -317,7 +315,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
                 className={`btn ${isTracked ? 'btn-secondary' : 'btn-primary'}`}
                 onClick={() => handleTrack(product)}
                 disabled={isTracked || isTracking}
-                style={{ width: '100%', justifyContent: 'center', fontSize: '0.85rem', padding: '0.55rem' }}
+                style={{ width: '100%', justifyContent: 'center', fontSize: '0.85rem', padding: '0.6rem' }}
               >
                 {isTracking ? (
                   <>
@@ -350,7 +348,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
           gap: '0.75rem',
           marginTop: '1.5rem',
           paddingTop: '1rem',
-          borderTop: '1px solid rgba(255, 255, 255, 0.05)'
+          borderTop: '1px solid var(--border-subtle)'
         }}>
           <button
             className="btn btn-secondary"
@@ -360,7 +358,7 @@ export default function ProductSearch({ trackedExternalIds, onTrackProduct }) {
             <ChevronLeft size={16} />
             <span>Previous</span>
           </button>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#fafafa' }}>
             Page {page} of {totalPages}
           </span>
           <button

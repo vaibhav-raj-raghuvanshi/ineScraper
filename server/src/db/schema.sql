@@ -68,6 +68,12 @@ create policy "Allow all on price_history" on price_history for all using (true)
 alter table scrape_logs enable row level security;
 create policy "Allow all on scrape_logs" on scrape_logs for all using (true) with check (true);
 
+-- Grant privileges to anon and authenticated roles (for publishable API keys)
+grant all on table tracked_products to anon, authenticated, service_role;
+grant all on table price_history to anon, authenticated, service_role;
+grant all on table scrape_logs to anon, authenticated, service_role;
+grant execute on function claim_due_products() to anon, authenticated, service_role;
+
 -- 5. Atomic Claim Stored Procedure
 -- Atomically claims products due for scraping with a 115-minute freshness threshold (slack)
 -- and locks them for 5 minutes to prevent race conditions or double cron fires.

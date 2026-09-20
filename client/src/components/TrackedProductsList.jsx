@@ -1,5 +1,5 @@
 import React from 'react';
-import { Trash2, TrendingUp, RefreshCw, ExternalLink, Clock, AlertTriangle, CheckCircle } from 'lucide-react';
+import { Trash2, TrendingUp, RefreshCw, ExternalLink, Clock } from 'lucide-react';
 
 export default function TrackedProductsList({
   products,
@@ -37,8 +37,8 @@ export default function TrackedProductsList({
   return (
     <div style={{ marginBottom: '2rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-        <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <TrendingUp size={18} color="var(--accent-cyan)" />
+        <h2 style={{ fontSize: '1.25rem', display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#fafafa' }}>
+          <TrendingUp size={18} color="#fafafa" />
           Tracked Products Portfolio ({products.length})
         </h2>
         <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
@@ -64,13 +64,14 @@ export default function TrackedProductsList({
               style={{
                 padding: '1.25rem',
                 cursor: 'pointer',
-                borderColor: isSelected ? 'var(--accent-cyan)' : 'var(--border-subtle)',
-                boxShadow: isSelected ? 'var(--shadow-glow)' : 'var(--shadow-card)',
+                borderColor: isSelected ? '#ffffff' : 'var(--border-subtle)',
+                boxShadow: isSelected ? '0 0 20px rgba(255, 255, 255, 0.1)' : 'var(--shadow-card)',
                 transform: isSelected ? 'translateY(-2px)' : 'none',
                 position: 'relative',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between'
+                justifyContent: 'space-between',
+                background: isSelected ? '#121216' : '#0d0d10'
               }}
             >
               <div>
@@ -78,7 +79,7 @@ export default function TrackedProductsList({
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span style={{
-                      fontSize: '0.7rem',
+                      fontSize: '0.72rem',
                       fontFamily: 'var(--font-mono)',
                       background: 'rgba(255, 255, 255, 0.06)',
                       padding: '0.15rem 0.45rem',
@@ -100,11 +101,10 @@ export default function TrackedProductsList({
                         onManualScrape(product.id);
                       }}
                       className="btn-ghost"
-                      style={{ padding: '0.25rem', borderRadius: '6px', cursor: 'pointer', border: 'none' }}
-                      title="Trigger manual scrape (Respects 115m TTL)"
-                      disabled={isScraping}
+                      style={{ padding: '0.25rem', borderRadius: '6px', cursor: isScraping ? 'wait' : 'pointer', border: 'none' }}
+                      title="Scrape and update live price immediately"
                     >
-                      <RefreshCw size={15} className={isScraping ? 'animate-spin' : ''} color="var(--accent-cyan)" />
+                      <RefreshCw size={15} className={isScraping ? 'animate-spin' : ''} color="#fafafa" />
                     </button>
                     <a
                       href={product.url}
@@ -134,7 +134,7 @@ export default function TrackedProductsList({
                 </div>
 
                 {/* Product Title */}
-                <h3 style={{ fontSize: '1.05rem', marginBottom: '0.25rem', lineHeight: '1.3' }}>
+                <h3 style={{ fontSize: '1.05rem', marginBottom: '0.25rem', lineHeight: '1.3', color: '#fafafa' }}>
                   {product.name}
                 </h3>
                 <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '1rem' }}>
@@ -148,14 +148,14 @@ export default function TrackedProductsList({
                   justifyContent: 'space-between',
                   padding: '0.85rem 1rem',
                   borderRadius: '10px',
-                  background: 'rgba(9, 13, 22, 0.7)',
+                  background: '#09090b',
                   border: '1px solid var(--border-subtle)',
                   marginBottom: '0.75rem'
                 }}>
                   <div>
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'block' }}>Current Price</span>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-                      <span style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                      <span style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fafafa' }}>
                         {product.latest_price ? `₹${product.latest_price.toLocaleString('en-IN')}` : 'Analyzing…'}
                       </span>
                       {product.latest_mrp && (
@@ -193,7 +193,7 @@ export default function TrackedProductsList({
                   <Clock size={13} />
                   {formatRelativeTime(product.last_scraped_at || product.last_success_at)}
                 </span>
-                <span style={{ color: isSelected ? 'var(--accent-cyan)' : 'inherit', fontWeight: isSelected ? 600 : 400 }}>
+                <span style={{ color: isSelected ? '#ffffff' : 'inherit', fontWeight: isSelected ? 600 : 400 }}>
                   {isSelected ? '● Active in Chart' : 'Click to View'}
                 </span>
               </div>
