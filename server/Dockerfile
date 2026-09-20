@@ -4,7 +4,8 @@ WORKDIR /app
 
 # Copy package files and install dependencies
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --omit=dev
+RUN npx playwright install chromium
 
 # Copy application files
 COPY . .
@@ -12,6 +13,7 @@ COPY . .
 # Set environment
 ENV PORT=4000
 ENV NODE_ENV=production
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 
 EXPOSE 4000
 

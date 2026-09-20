@@ -108,6 +108,28 @@ async function loadFullCatalog() {
 loadFullCatalog();
 
 // ---------------------------------------------------------------------------
+// 0. Root & Favicon endpoints (Friendly status page for browser visits)
+// ---------------------------------------------------------------------------
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    service: 'INE Product Price Tracker API',
+    version: '1.0.0',
+    uptimeSec: Math.floor(process.uptime()),
+    catalogProducts: catalogCache.length,
+    endpoints: {
+      health: 'GET /health',
+      search: 'GET /api/search?q=query',
+      catalog: 'GET /api/catalog',
+      tracked: 'GET /api/tracked',
+      cron: 'POST /api/cron/scrape'
+    }
+  });
+});
+
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
+// ---------------------------------------------------------------------------
 // 1. Health check endpoint (Keep-warm every ~10 min from cron-job.org)
 // ---------------------------------------------------------------------------
 app.get('/health', (req, res) => {
