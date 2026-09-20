@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { dbRepo } from '../src/db/repo.js';
@@ -12,7 +13,7 @@ test('Outcome Semantics & Isolation Rules', async (t) => {
   await t.test('Initial log row is inserted with in-progress state', async () => {
     const p = await dbRepo.addTrackedProduct({
       external_id: 101,
-      name: 'Test Keyboard',
+      name: 'Larkspur Running Watch Mini',
       url: 'https://demo.inelabteamdev.com/product/101'
     });
 
@@ -47,7 +48,7 @@ test('Outcome Semantics & Isolation Rules', async (t) => {
   await t.test('Never stores price_history on scrape failure', async () => {
     const p = await dbRepo.addTrackedProduct({
       external_id: 999,
-      name: 'Failed Product',
+      name: 'Ironwood Graphics Tablet Neo',
       url: 'https://demo.inelabteamdev.com/product/999'
     });
 
@@ -84,5 +85,12 @@ test('Outcome Semantics & Isolation Rules', async (t) => {
     const dueAfter = await dbRepo.claimDueProducts();
     const claimedIds = dueAfter.map(d => d.id);
     assert.ok(!claimedIds.includes(p101.id), 'Freshly scraped product must not be claimed again within 115 mins');
+  });
+
+  t.after(async () => {
+    const p101 = await dbRepo.getTrackedProductByExternalId(101);
+    if (p101) await dbRepo.deleteTrackedProduct(p101.id);
+    const p999 = await dbRepo.getTrackedProductByExternalId(999);
+    if (p999) await dbRepo.deleteTrackedProduct(p999.id);
   });
 });

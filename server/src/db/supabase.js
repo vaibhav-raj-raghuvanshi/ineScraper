@@ -49,6 +49,7 @@ class InMemoryStore {
   }
 
   saveToDisk() {
+    if (process.env.NODE_ENV === 'test') return;
     try {
       const dir = path.dirname(DB_STORE_PATH);
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
